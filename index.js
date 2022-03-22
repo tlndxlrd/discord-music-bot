@@ -33,7 +33,12 @@ client.player = new Player(client, {
         highWaterMark: 1 << 25
     }
 })
-
+var express = require('express');
+var app = express();
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
+});
 module.exports = client
 
 let commands = []
@@ -82,8 +87,6 @@ else {
         }
         handleCommand()
     })
-    
-    process.env.PORT || 3000
 
     process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 
