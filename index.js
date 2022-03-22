@@ -22,9 +22,7 @@ const client = new Discord.Client({
 
 function intervalFunc() {
     console.log('Запрос');
-  }
-  
-  setInterval(intervalFunc, 1500000);
+}
 
 const {DisTube} = require('distube')
 const {SpotifyPlugin} = require('@distube/spotify')
@@ -96,5 +94,5 @@ else {
 
     process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 
-    client.login(TOKEN)
+    client.login(TOKEN).setInterval(intervalFunc, 1500000);
 }
