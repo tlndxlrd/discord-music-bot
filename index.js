@@ -82,5 +82,10 @@ else {
         }
         handleCommand()
     })
+    
+    process.env.PORT || 3000
+
+    process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
+
     client.login(TOKEN)
 }
