@@ -39,24 +39,39 @@ module.exports = {
             let url = interaction.options.getString("url")
             const result = await client.player.search(url, {
                 requestedBy: interaction.user,
-                searchEngine: 6,
                 searchEngine: 14
             })
-            console.log(result.tracks.length)
+
+            const resultSpotify = await client.player.search(url, {
+                requestedBy: interaction.user,
+                searchEngine: 6,
+            })
+            
             // await client.player.search(url, {
             //     requestedBy: interaction.user,
             //     searchEngine: 14
             // })
-            if (result.tracks.length === 0) {
+            if (result.tracks.length + resultSpotify.tracks.length === 0) {
                 return interaction.editReply("Не найдено")
             }
             
-            const song = result.tracks[0]
-            await queue.addTrack(song)
-            embed
-                .setDescription(`**[${song.title}](${song.url})** трек добавлен в очередь`)
-                .setThumbnail(song.thumbnail)
-                .setFooter({ text: `Дата: ${song.duration}`})
+            if(result.tracks.length === 1) {
+                const song = result.tracks[0]
+                await queue.addTrack(song)
+                embed
+                    .setDescription(`**[${song.title}](${song.url})** трек добавлен в очередь`)
+                    .setThumbnail(song.thumbnail)
+                    .setFooter({ text: `Дата: ${song.duration}`})
+            }
+
+            if(resultSpotify.tracks.length === 1) {
+                const song = resultSpotify.tracks[0]
+                await queue.addTrack(song)
+                embed
+                    .setDescription(`**[${song.title}](${song.url})** трек добавлен в очередь`)
+                    .setThumbnail(song.thumbnail)
+                    .setFooter({ text: `Дата: ${song.duration}`})
+            }
 
 		} else if (interaction.options.getSubcommand() === "playlist") {
             try{
