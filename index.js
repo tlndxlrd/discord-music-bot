@@ -20,6 +20,12 @@ const client = new Discord.Client({
     ]
 })
 
+function intervalFunc() {
+    console.log('Запрос');
+  }
+  
+  setInterval(intervalFunc, 1500000);
+
 const {DisTube} = require('distube')
 const {SpotifyPlugin} = require('@distube/spotify')
 client.slashcommands = new Discord.Collection()
