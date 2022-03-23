@@ -28,7 +28,7 @@ module.exports = {
 		),
 	run: async ({ client, interaction }) => {
 
-		if (!interaction.member.voice.channel) return interaction.editReply("Присоеденитесь к голосовому каналу и опробуйте снова")
+		if (!interaction.member.voice.channel) return interaction.reply("Присоеденитесь к голосовому каналу и опробуйте снова")
 
 		const queue = await client.player.createQueue(interaction.guild)
 
@@ -144,7 +144,7 @@ module.exports = {
             await queue.play()
         }
 
-        await interaction.editReply({
+        await interaction.reply({
             embeds: [embed]
         })
 	},
