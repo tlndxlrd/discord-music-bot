@@ -6,10 +6,11 @@ module.exports = {
 	run: async ({ client, interaction }) => {
 		const queue = client.player.getQueue(interaction.guildId)
 
-		let embed = new MessageEmbed
+		let embed = new MessageEmbed()
+		
 		embed
-		.setTitle('Ошибка')
-		.setDescription('В очереди нет треков')
+			.setTitle('Ошибка')
+			.setDescription('В очереди нет треков')
 
 		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
@@ -20,11 +21,12 @@ module.exports = {
 
         const song = queue.current
 
+		embed
+			.setThumbnail(song.thumbnail)
+			.setDescription(`Сейчас играет [${song.author} - ${song.title}](${song.url})\n\n` + bar)
+
 		await interaction.reply({
-			embeds: [new MessageEmbed()
-            .setThumbnail(song.thumbnail)
-            .setDescription(`Сейчас играет [${song.author} - ${song.title}](${song.url})\n\n` + bar)
-        ],
+			embeds: [embed],
 		ephemeral: true})
 	},
 }

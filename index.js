@@ -7,11 +7,13 @@ const { Player } = require("discord-player")
 
 dotenv.config()
 const TOKEN = process.env.TOKEN
+const SPOTIFY_TOKEN = process.env.SPOTIFY_TOKEN
+const SPOTIFY_ID = process.env.SPOTIFY_ID
 
 const LOAD_SLASH = process.argv[2] == "load"
 
-const CLIENT_ID = '955006448058916924'
-const GUILD_ID = '881574277516755025'
+const CLIENT_ID = process.env.CLIENT_ID
+const GUILD_ID = process.env.GUILD_ID
 
 const client = new Discord.Client({
     intents: [
@@ -23,16 +25,27 @@ const client = new Discord.Client({
 const {DisTube} = require('distube')
 const {SpotifyPlugin} = require('@distube/spotify')
 client.slashcommands = new Discord.Collection()
+
 client.player = new Player(client, {
     emitNewSongOnly: true,
     leaveOnFinish: true,
     emitAddSongWhenCreatingQueue: false,
-    plugins: [new SpotifyPlugin()],
+    plugins: [new SpotifyPlugin(
+        {
+            parallel: true,
+            emitEventsAfterFetching: false,
+            api: {
+              clientId: SPOTIFY_ID,
+              clientSecret: SPOTIFY_TOKEN,
+            },
+          
+    })],
     ytdlOptions: {
         quality: "highestaudio",
         highWaterMark: 1 << 25
     }
 })
+
 var express = require('express');
 var app = express();
 const PORT = process.env.PORT || 3000;
@@ -77,12 +90,13 @@ else {
     })
     client.on("interactionCreate", (interaction) => {
         async function handleCommand() {
-            if (!interaction.isCommand()) return
-
-            const slashcmd = client.slashcommands.get(interaction.commandName)
-            if (!slashcmd) interaction.reply("Not a valid slash command")
-
-            await slashcmd.run({ client, interaction })
+            
+            let slashcmd = client.slashcommands.get(interaction.commandName)
+            if (!slashcmd) {
+                await interaction.reply("Not a valid slash command")
+            }
+            
+            slashcmd.run({ client, interaction })
         }
         handleCommand()
     })

@@ -7,21 +7,23 @@ module.exports = {
 
 		const queue = client.player.getQueue(interaction.guildId)
 
-		const embed1 = new MessageEmbed()
+		let embed = new MessageEmbed()
+
+		embed
 			.setTitle('Ошибка')
 			.setDescription('В очереди нет треков')
 
-		if (!queue) return await interaction.reply({embeds: [embed1], ephemeral: true})
+		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
         const currentSong = queue.current
 
 		await queue.skip()
-
+		embed
+			.setTitle('Выполнено')
+			.setDescription(`${currentSong.title} был пропущен!`)
+			.setThumbnail(currentSong.thumbnail)
         await interaction.reply({
-            embeds: [new MessageEmbed()
-				.setDescription(`${currentSong.title} был пропущен!`)
-				.setThumbnail(currentSong.thumbnail)
-            ], ephemeral: true
+            embeds: [embed], ephemeral: true
         })
 	},
 }

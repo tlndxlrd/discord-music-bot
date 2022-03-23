@@ -10,30 +10,32 @@ module.exports = {
 
         const volume = (interaction.options.getNumber("set_volume"))
 
-        const embed = new MessageEmbed()
-		.setTitle('Ошибка')
-		.setDescription('В очереди нет треков')
+        let embed = new MessageEmbed()
+
+		embed
+			.setTitle('Ошибка')
+			.setDescription('В очереди нет треков')
 
 		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
-        const embed2 = new MessageEmbed()
+        embed
 		.setTitle('Ошибка')
 		.setDescription("Введите корректное число")
 
         if(volume > 100) {
-            return interaction.reply({embeds: [embed2], ephemeral: true})
+            return interaction.reply({embeds: [embed], ephemeral: true})
         }
 
         if(volume === 0) {
-            return interaction.reply({embeds: [embed2], ephemeral: true})
+            return interaction.reply({embeds: [embed], ephemeral: true})
         }
 
-        const embed1 = new MessageEmbed()
+        embed
 		.setTitle('Выполнено')
 		.setDescription(`Текущая громкость ${volume}`)
 
 		await queue.setVolume(volume)
 
-        await interaction.reply({embeds: [embed1], ephemeral: true})
+        await interaction.reply({embeds: [embed], ephemeral: true})
 	},
 }

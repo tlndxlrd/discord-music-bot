@@ -7,18 +7,20 @@ module.exports = {
 
 		const queue = client.player.getQueue(interaction.guildId)
 
-		const embed = new MessageEmbed()
+		let embed = new MessageEmbed()
+
+		embed
 		.setTitle('Ошибка')
 		.setDescription('В очереди нет треков')
-
-		const embed1 = new MessageEmbed()
-		.setTitle('Выполнено')
-		.setDescription(`Очередь треков из ${queue.tracks.length} смешана!`)
 
 		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
 		await queue.shuffle()
 
-        await interaction.reply({embeds: [embed1], ephemeral: true})
+		embed
+			.setTitle('Выполнено')
+			.setDescription(`Очередь треков из ${queue.tracks.length} смешана!`)
+
+        await interaction.reply({embeds: [embed], ephemeral: true})
 	},
 }

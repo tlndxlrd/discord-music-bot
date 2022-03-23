@@ -15,27 +15,28 @@ module.exports = {
 
         let object = interaction.options._hoistedOptions[0].value
         
-        const embed2 = new MessageEmbed()
-		.setTitle('Ошибка')
-		.setDescription('В очереди нет треков')
+        let embed = new MessageEmbed()
 
-		if (!queue) return await interaction.reply({embeds: [embed2], ephemeral: true})
+        embed
+		    .setTitle('Ошибка')
+		    .setDescription('В очереди нет треков')
 
-        const embed = new MessageEmbed()
-            .setTitle('RepeatMode активирован')
-            .setDescription(`Режим автоповтор ${object} запущен`)
-
-        const embed1 = new MessageEmbed()
-            .setTitle('RepeatMode деактивирован')
-            .setDescription(`Режим автоповтор выключен`)
+		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
         if(object === 'queue') {
+            embed
+                .setTitle('RepeatMode активирован')
+                .setDescription(`Режим автоповтор ${object} запущен`)
+
             await queue.setRepeatMode(3);
             await interaction.reply({
                 embeds: [embed], ephemeral: true
             })
         }
         if(object === 'track') {
+            embed
+                .setTitle('RepeatMode активирован')
+                .setDescription(`Режим автоповтор ${object} запущен`)
             await queue.setRepeatMode(2);
             await interaction.reply({
                 embeds: [embed], ephemeral: true
@@ -43,9 +44,12 @@ module.exports = {
         }
 
         if(object === 'delfilter'){
+            embed
+                .setTitle('RepeatMode деактивирован')
+                .setDescription(`Режим автоповтор выключен`)
             await queue.setRepeatMode(1);
             await interaction.reply({
-                embeds: [embed1], ephemeral: true
+                embeds: [embed], ephemeral: true
             })
         }
     }

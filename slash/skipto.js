@@ -9,15 +9,17 @@ module.exports = {
 
 		const queue = client.player.getQueue(interaction.guildId)
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
+
+		embed
 		.setTitle('Ошибка')
 		.setDescription('В очереди нет треков')
 
-        const embed1 = new MessageEmbed()
+        embed
 		.setTitle('Ошибка')
 		.setDescription('Неверный номер трека')
 
-		const embed2 = new MessageEmbed()
+		embed
 		.setTitle('Выполнено')
 		.setDescription(`Треки пропущены, номер трека ${trackNum}`)
 
@@ -26,11 +28,11 @@ module.exports = {
         const trackNum = interaction.options.getNumber("tracknumber")
 
         if (trackNum > queue.tracks.length){
-			return await interaction.reply({embeds: [embed1], ephemeral: true})
+			return await interaction.reply({embeds: [embed], ephemeral: true})
 		}
         
 		await queue.skipTo(trackNum - 1)
 
-        await interaction.reply({embeds: [embed2], ephemeral: true})
+        await interaction.reply({embeds: [embed], ephemeral: true})
 	},
 }

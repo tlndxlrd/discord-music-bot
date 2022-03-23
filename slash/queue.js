@@ -11,7 +11,9 @@ module.exports = {
 
         const queue = client.player.getQueue(interaction.guildId)
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
+
+        embed
 		.setTitle('Ошибка')
 		.setDescription('В очереди нет треков')
 
@@ -23,12 +25,12 @@ module.exports = {
 
         const page = (interaction.options.getNumber("page") || 1) - 1
 
-        const embed1 = new MessageEmbed()
+        embed
 		.setTitle('Неверная страница')
 		.setDescription(`Всего есть только ${totalPages} страниц с треками`)
 
         if (page > totalPages) {
-            return await interaction.reply({embeds: [embed1], ephemeral: true})
+            return await interaction.reply({embeds: [embed], ephemeral: true})
         }
         
         const queueString = queue.tracks.slice(page * 10, page * 10 + 10).map((song, i) => {
@@ -37,18 +39,18 @@ module.exports = {
 
         const currentSong = queue.current
 
+        embed
+            .setDescription(`**Сейчас играет**\n` + 
+            (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.title} -- <@${currentSong.requestedBy.id}>` : "None") +
+            `\n\n**Очередь**\n${queueString}`
+            )
+            .setFooter({
+                text: `Страница ${page + 1} из ${totalPages}`
+            })
+            .setThumbnail(currentSong.setThumbnail)
+
         await interaction.reply({
-            embeds: [
-                new MessageEmbed()
-                    .setDescription(`**Сейчас играет**\n` + 
-                    (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.title} -- <@${currentSong.requestedBy.id}>` : "None") +
-                    `\n\n**Очередь**\n${queueString}`
-                    )
-                    .setFooter({
-                        text: `Страница ${page + 1} из ${totalPages}`
-                    })
-                    .setThumbnail(currentSong.setThumbnail)
-            ], ephemeral: true
+            embeds: [embed], ephemeral: true
         })
     }
 }

@@ -7,18 +7,20 @@ module.exports = {
 
 		const queue = client.player.getQueue(interaction.guildId)
 		
-		const embed = new MessageEmbed()
+		let embed = new MessageEmbed()
+
+		embed
 		.setTitle('Ошибка')
 		.setDescription('В очереди нет треков')
-
-		const embed1 = new MessageEmbed()
-		.setTitle('Выполнено')
-		.setDescription('Возобновлено воиспроизведение трека! Используйте `/pause`, чтобы поставить трек на паузу')
 
 		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
 		await queue.setPaused(false)
 
-        await interaction.reply({embeds: [embed1], ephemeral: true})
+		embed
+			.setTitle('Выполнено')
+			.setDescription('Возобновлено воиспроизведение трека! Используйте `/pause`, чтобы поставить трек на паузу')
+
+        await interaction.reply({embeds: [embed], ephemeral: true})
 	},
 }

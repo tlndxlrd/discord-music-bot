@@ -8,144 +8,71 @@ module.exports = {
 		.setDescription("Воспроизводит треки с youtube или spotify")
 		.addSubcommand((subcommand) =>
 			subcommand
-				.setName("song")
-				.setDescription("Воспроизводит трек из youtube или spotify")
-				.addStringOption((option) => option.setName("url").setDescription("Ссылка на трек").setRequired(true))
-		)
-		.addSubcommand((subcommand) =>
-			subcommand
-				.setName("playlist")
-				.setDescription("Воспроизводит плейлист с spotify")
-				.addStringOption((option) => option.setName("url").setDescription("Ссылка на плейлист").setRequired(true))
-		)
-		.addSubcommand((subcommand) =>
-			subcommand
-				.setName("search")
-				.setDescription("Ищет трек по названию")
-				.addStringOption((option) =>
-					option.setName("searchterms").setDescription("Напишите название трека").setRequired(true)
-				)
+				.setName("song_playlist_search")
+				.setDescription("Воспроизводит трек или плейлист из youtube или spotify")
+				.addStringOption((option) => option.setName("url").setDescription("Ссылка на трек или плейлист").setRequired(true))
 		),
-	run: async ({ client, interaction }) => {
+    run: async ({ client, interaction }) => {
 
-		if (!interaction.member.voice.channel) return interaction.reply("Присоеденитесь к голосовому каналу и опробуйте снова")
+        await interaction.deferReply({ ephemeral: true })
 
-		const queue = await client.player.createQueue(interaction.guild)
+        let embed = new MessageEmbed()
 
-		if (!queue.connection) await queue.connect(interaction.member.voice.channel)
+        embed
+            .setTitle('Ошибка')
+            .setDescription("Присоеденитесь к голосовому каналу и опробуйте снова")
 
-		let embed = new MessageEmbed()
+        if (!interaction.member.voice.channel) return interaction.editReply({ embeds: [embed] })
 
-		if (interaction.options.getSubcommand() === "song") {
+        const queue = await client.player.createQueue(interaction.guild)
+
+        if (!queue.connection) await queue.connect(interaction.member.voice.channel)
+
+        if (interaction.options.getSubcommand() === "song_playlist_search") {
             let url = interaction.options.getString("url")
             const result = await client.player.search(url, {
                 requestedBy: interaction.user,
-                searchEngine: 14
+                searchEngine: QueryType.AUTO
             })
-
-            const resultSpotify = await client.player.search(url, {
-                requestedBy: interaction.user,
-                searchEngine: 6,
-            })
-            
-            if (result.tracks.length + resultSpotify.tracks.length === 0) {
-                const embed1 = new MessageEmbed()
-                .setTitle('Ошибка')
-                .setDescription("Не найдено")
-                return interaction.reply({embeds: [embed1], ephemeral: true})
-            }
-            
-            if(result.tracks.length === 1) {
-                const song = result.tracks[0]
-                await queue.addTrack(song)
+            console.log(result.tracks.length)
+            if (result.tracks.length === 0) {
                 embed
-                    .setDescription(`**[${song.author} - ${song.title}](${song.url})** трек добавлен в очередь`)
-                    .setThumbnail(song.thumbnail)
-                    .setFooter({ text: `Дата: ${song.duration}`})
-            }
-
-            if(resultSpotify.tracks.length === 1) {
-                const song = resultSpotify.tracks[0]
-                await queue.addTrack(song)
-                embed
-                    .setDescription(`**[${song.author} - ${song.title}](${song.url})** трек добавлен в очередь`)
-                    .setThumbnail(song.thumbnail)
-                    .setFooter({ text: `Дата: ${song.duration}`})
-            }
-
-		} else if (interaction.options.getSubcommand() === "playlist") {
-
-            try{
-            let url = interaction.options.getString("url")
-
-            const result = await client.player.search(url, {
-                requestedBy: interaction.user,
-                searchEngine: QueryType.YOUTUBE_PLAYLIST,
-            })
-
-            const resultSpotify = await client.player.search(url, {
-                requestedBy: interaction.user,
-                searchEngine: QueryType.SPOTIFY_PLAYLIST,
-            })
-
-            if (result.tracks.length + resultSpotify.tracks.length === 0) {
-                const embed1 = new MessageEmbed()
                     .setTitle('Ошибка')
                     .setDescription("Не найдено")
-                return interaction.reply({embeds: [embed1], ephemeral: true})
+                return interaction.editReply({ embeds: [embed] })
             }
-            
-            if(result.tracks.length > 1) {
-                const playlist = result.playlist
-                await queue.addTracks(result.tracks)
-                embed
-                    .setDescription(`**${result.tracks.length} треков с плейлиста [${playlist.title}](${playlist.url})** добавлены в очередь`)
-                    .setThumbnail(playlist.thumbnail)
+            const playlist = result.playlist
+            if (playlist) {
+                try {
+                    await queue.addTracks(result.tracks)
+                    embed
+                        .setTitle('Выполнено')
+                        .setDescription(`**${result.tracks.length} треков с плейлиста [${playlist.title}](${playlist.url})** добавлены в очередь`)
+                        .setThumbnail(playlist.thumbnail)
+                } catch (e) {
+                    console.log(e)
+                }
             }
 
-            if(resultSpotify.tracks.length > 1) {
-                const playlist = resultSpotify.playlist
-                await queue.addTracks(resultSpotify.tracks)
-                embed
-                    .setDescription(`**${resultSpotify.tracks.length} треков с плейлиста [${playlist.title}](${playlist.url})** добавлены в очередь`)
-                    .setThumbnail(playlist.thumbnail)
-            }
-        }catch (e) {
-            const embed1 = new MessageEmbed()
-                .setTitle('Ошибка')
-                .setDescription('Неизвестная ошибка')
-            return interaction.reply({embeds: [embed1], ephemeral: true})
-            }
-		} else if (interaction.options.getSubcommand() === "search") {
-
-            let url = interaction.options.getString("searchterms")
-            const result = await client.player.search(url, {
-                requestedBy: interaction.user,
-                searchEngine: QueryType.AUTO,
-            })
-
-            if (result.tracks.length === 0) {
-                const embed1 = new MessageEmbed()
-                .setTitle('Ошибка')
-                .setDescription("Не найдено")
-            return interaction.reply({embeds: [embed1], ephemeral: true})
-            }
-            
             const song = result.tracks[0]
-            await queue.addTrack(song)
-
-            embed
-                .setDescription(`**[${song.author} - ${song.title}](${song.url})** трек добавлен в очередь`)
-                .setThumbnail(song.thumbnail)
-                .setFooter({ text: `Дата: ${song.duration}`})
-		}
-
-        if (!queue.playing) {
-            await queue.play()
+            if (song) {
+                try {
+                    await queue.addTrack(song)
+                    embed
+                        .setTitle('Выполнено')
+                        .setDescription(`**[${song.author} - ${song.title}](${song.url})** трек добавлен в очередь`)
+                        .setThumbnail(song.thumbnail)
+                        .setFooter({ text: `Дата: ${song.duration}` })
+                } catch (e) {
+                    console.log(e)
+                }
+            }
         }
 
-        await interaction.reply({
+        if (!queue.playing) await queue.play()
+
+        await interaction.channel.send({
             embeds: [embed]
         })
-	},
+    },
 }
