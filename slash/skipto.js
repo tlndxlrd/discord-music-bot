@@ -6,30 +6,31 @@ module.exports = {
     .addNumberOption((option) => 
         option.setName("tracknumber").setDescription("Трек, на который нужно перейти").setMinValue(1).setRequired(true)),
 	run: async ({ client, interaction }) => {
+
 		const queue = client.player.getQueue(interaction.guildId)
 
-        let embed = new MessageEmbed
-		embed
+        const embed = new MessageEmbed()
 		.setTitle('Ошибка')
 		.setDescription('В очереди нет треков')
 
-        let embed1 = new MessageEmbed
-		embed1
+        const embed1 = new MessageEmbed()
 		.setTitle('Ошибка')
 		.setDescription('Неверный номер трека')
 
-		let embed2 = new MessageEmbed
-		embed2
+		const embed2 = new MessageEmbed()
 		.setTitle('Выполнено')
 		.setDescription(`Треки пропущены, номер трека ${trackNum}`)
 
-		if (!queue) return await interaction.editReply({embeds: [embed]})
+		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
         const trackNum = interaction.options.getNumber("tracknumber")
-        if (trackNum > queue.tracks.length)
-            return await interaction.editReply({embeds: [embed1]})
-		queue.skipTo(trackNum - 1)
 
-        await interaction.editReply({embeds: [embed2]})
+        if (trackNum > queue.tracks.length){
+			return await interaction.reply({embeds: [embed1], ephemeral: true})
+		}
+        
+		await queue.skipTo(trackNum - 1)
+
+        await interaction.reply({embeds: [embed2], ephemeral: true})
 	},
 }

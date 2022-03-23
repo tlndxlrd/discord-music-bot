@@ -11,7 +11,7 @@ module.exports = {
 		.setTitle('Ошибка')
 		.setDescription('В очереди нет треков')
 
-		if (!queue) return await interaction.editReply({embeds: [embed]})
+		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
 		let bar = queue.createProgressBar({
 			queue: false,
@@ -20,11 +20,11 @@ module.exports = {
 
         const song = queue.current
 
-		await interaction.editReply({
+		await interaction.reply({
 			embeds: [new MessageEmbed()
             .setThumbnail(song.thumbnail)
-            .setDescription(`Сейчас играет [${song.title}](${song.url})\n\n` + bar)
+            .setDescription(`Сейчас играет [${song.author} - ${song.title}](${song.url})\n\n` + bar)
         ],
-		})
+		ephemeral: true})
 	},
 }

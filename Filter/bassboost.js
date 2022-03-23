@@ -13,50 +13,48 @@ module.exports = {
 	run: async ({ client, interaction }) => {
         
         const queue = client.player.getQueue(interaction.guildId)
+
         let object = interaction.options._hoistedOptions[0].value
         
-        let embed2 = new MessageEmbed
-		embed2
+        const embed2 = new MessageEmbed()
 		.setTitle('Ошибка')
 		.setDescription('В очереди нет треков')
 
-		if (!queue) return await interaction.editReply({embeds: [embed2]})
+		if (!queue) return await interaction.reply({embeds: [embed2], ephemeral: true})
 
-        let embed = new MessageEmbed
-            embed
-                .setTitle('Режим bassboost активирован')
-                .setDescription(`${object} запущен`)
+        const embed = new MessageEmbed()
+            .setTitle('Режим bassboost активирован')
+            .setDescription(`${object} запущен`)
 
-        let embed1 = new MessageEmbed
-            embed1
-                .setTitle('Режим bassboost деактивирован')
-                .setDescription(`Все фильтры выключены`)
+        const embed1 = new MessageEmbed()
+            .setTitle('Режим bassboost деактивирован')
+            .setDescription(`Все фильтры выключены`)
 
         if(object === 'bassboost_low') {
             await queue.setFilters({bassboost_low: true});
-            await interaction.editReply({
-                embeds: [embed]
+            await interaction.reply({
+                embeds: [embed], ephemeral: true
             })
         }
         if(object === 'bassboost') {
             await queue.setFilters({bassboost: true});
-            await interaction.editReply({
-                embeds: [embed]
+            await interaction.reply({
+                embeds: [embed], ephemeral: true
             })
         }
         if(object === 'bassboost_high') {
             await queue.setFilters({bassboost_high: true});
-            await interaction.editReply({
-                embeds: [embed]
+            await interaction.reply({
+                embeds: [embed], ephemeral: true
             })
         }
-        //console.log(queue._activeFilters)
+
         if(object === 'delfilter'){
             await queue.setFilters({bassboost_low: false});
             await queue.setFilters({bassboost: false});
             await queue.setFilters({bassboost_high: false});
-            await interaction.editReply({
-                embeds: [embed1]
+            await interaction.reply({
+                embeds: [embed1], ephemeral: true
             })
         }
     }

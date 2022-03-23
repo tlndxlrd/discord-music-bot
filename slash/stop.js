@@ -4,21 +4,21 @@ const { MessageEmbed } = require("discord.js")
 module.exports = {
 	data: new SlashCommandBuilder().setName("stop").setDescription("Останавливает бота и очищает очередь из треков"),
 	run: async ({ client, interaction }) => {
+
 		const queue = client.player.getQueue(interaction.guildId)
 
-		let embed = new MessageEmbed
-		embed
+		const embed = new MessageEmbed()
 		.setTitle('Ошибка')
 		.setDescription('В очереди нет треков')
 
-		let embed1 = new MessageEmbed
-		embed1
+		const embed1 = new MessageEmbed()
 		.setTitle('Выполнено')
 		.setDescription('Бот остановлен')
 
-		if (!queue) return await interaction.editReply({embeds: [embed]})
+		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
-		queue.destroy()
-        await interaction.editReply({embeds: [embed1]})
+		await queue.destroy()
+
+        await interaction.reply({embeds: [embed1], ephemeral: true})
 	},
 }

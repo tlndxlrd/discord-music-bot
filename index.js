@@ -11,7 +11,7 @@ const TOKEN = process.env.TOKEN
 const LOAD_SLASH = process.argv[2] == "load"
 
 const CLIENT_ID = '955006448058916924'
-const GUILD_ID = '921799985723494461'
+const GUILD_ID = '881574277516755025'
 
 const client = new Discord.Client({
     intents: [
@@ -20,10 +20,6 @@ const client = new Discord.Client({
     ]
 })
 
-function intervalFunc() {
-    console.log('Запрос');
-}
-setInterval(intervalFunc, 600000);
 const {DisTube} = require('distube')
 const {SpotifyPlugin} = require('@distube/spotify')
 client.slashcommands = new Discord.Collection()
@@ -86,7 +82,6 @@ else {
             const slashcmd = client.slashcommands.get(interaction.commandName)
             if (!slashcmd) interaction.reply("Not a valid slash command")
 
-            await interaction.deferReply()
             await slashcmd.run({ client, interaction })
         }
         handleCommand()

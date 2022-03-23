@@ -6,19 +6,17 @@ module.exports = {
 	run: async ({ client, interaction }) => {
 		const queue = client.player.getQueue(interaction.guildId)
 
-		let embed = new MessageEmbed
-		embed
+		const embed = new MessageEmbed()
 		.setTitle('Ошибка')
 		.setDescription('В очереди нет треков')
 
-		let embed1 = new MessageEmbed
-		embed1
+		const embed1 = new MessageEmbed()
 		.setTitle('Выполнено')
 		.setDescription('Трек поставлен ​​на паузу!\nИспользуйте `/resume`, чтобы возобновить трек')
 
-		if (!queue) return await interaction.editReply({embeds: [embed]})
+		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
 		queue.setPaused(true)
-        await interaction.editReply({embeds: [embed1]})
+        await interaction.reply({embeds: [embed1], ephemeral: true})
 	},
 }
