@@ -9,7 +9,7 @@ module.exports = {
     .addChoice('Трек', 'track')
     .addChoice('Выключить', 'delfilter')),
     
-	run: async ({ client, interaction }) => {
+	run: async (client, interaction) => {
         
         const queue = client.player.getQueue(interaction.guildId)
 

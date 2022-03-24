@@ -3,15 +3,15 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
 	data: new SlashCommandBuilder().setName("shuffle").setDescription("Перемешивает очередь из треков"),
-	run: async ({ client, interaction }) => {
+	run: async (client, interaction) => {
 
 		const queue = client.player.getQueue(interaction.guildId)
 
 		let embed = new MessageEmbed()
 
 		embed
-		.setTitle('Ошибка')
-		.setDescription('В очереди нет треков')
+			.setTitle('Ошибка')
+			.setDescription('В очереди нет треков')
 
 		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 

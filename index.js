@@ -4,6 +4,8 @@ const { REST } = require("@discordjs/rest")
 const { Routes } = require("discord-api-types/v9")
 const fs = require("fs")
 const { Player } = require("discord-player")
+const colors = require('colors')
+const {readdirSync} = require('fs')
 
 dotenv.config()
 const TOKEN = process.env.TOKEN
@@ -22,9 +24,15 @@ const client = new Discord.Client({
     ]
 })
 
+client.slashcommands = new Discord.Collection()
+client.events = new Discord.Collection();
+client.aliases = new Discord.Collection();
+client.slashCommand = new Discord.Collection();
+module.exports.client = client
+
+
 const {DisTube} = require('distube')
 const {SpotifyPlugin} = require('@distube/spotify')
-client.slashcommands = new Discord.Collection()
 
 client.player = new Player(client, {
     emitNewSongOnly: true,
@@ -52,23 +60,16 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
 });
-module.exports = client
 
 let commands = []
 
-const slashFiles = fs.readdirSync("./slash").filter(file => file.endsWith(".js"))
-for (const file of slashFiles){
-    const slashcmd = require(`./slash/${file}`)
-    client.slashcommands.set(slashcmd.data.name, slashcmd)
-    if (LOAD_SLASH) commands.push(slashcmd.data.toJSON())
-}
+    const slashFiles = readdirSync(`./slash`).filter((file) => file.endsWith(".js"));
+    for (let file of slashFiles) {
+        const slashcmd = require(`./slash/${file}`)
+        client.slashcommands.set(slashcmd.data.name, slashcmd)
+        if (LOAD_SLASH) commands.push(slashcmd.data.toJSON())
+    }
 
-const filterFiles = fs.readdirSync("./Filter").filter(file => file.endsWith(".js"))
-for (const file of filterFiles){
-    const slashcmd = require(`./Filter/${file}`)
-    client.slashcommands.set(slashcmd.data.name, slashcmd)
-    if (LOAD_SLASH) commands.push(slashcmd.data.toJSON())
-}
 if (LOAD_SLASH) {
     const rest = new REST({ version: "9" }).setToken(TOKEN)
     console.log("Deploying slash commands")
@@ -84,24 +85,14 @@ if (LOAD_SLASH) {
         }
     })
 }
-else {
-    client.on("ready", () => {
-        console.log(`Logged in as ${client.user.tag}`)
-    })
-    client.on("interactionCreate", (interaction) => {
-        async function handleCommand() {
-            
-            let slashcmd = client.slashcommands.get(interaction.commandName)
-            if (!slashcmd) {
-                await interaction.reply("Not a valid slash command")
-            }
-            
-            slashcmd.run({ client, interaction })
-        }
-        handleCommand()
-    })
 
-    process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
+["events"].forEach(handler => {
+    try {
+        require(`./handlers/${handler}`)(client)
+    } catch (e) {
+        console.log(e)
+    }
+});
+process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 
-    client.login(TOKEN)
-}
+client.login(TOKEN)

@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
 	data: new SlashCommandBuilder().setName("skip").setDescription("Пропускает текущий трек"),
-	run: async ({ client, interaction }) => {
+	run: async (client, interaction) => {
 
 		const queue = client.player.getQueue(interaction.guildId)
 
@@ -18,10 +18,12 @@ module.exports = {
         const currentSong = queue.current
 
 		await queue.skip()
+		
 		embed
 			.setTitle('Выполнено')
 			.setDescription(`${currentSong.title} был пропущен!`)
 			.setThumbnail(currentSong.thumbnail)
+
         await interaction.reply({
             embeds: [embed], ephemeral: true
         })

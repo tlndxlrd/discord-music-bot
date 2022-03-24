@@ -7,15 +7,15 @@ module.exports = {
     .setDescription("Отображает текущую очередь треков")
     .addNumberOption((option) => option.setName("page").setDescription("Cтраницы очереди треков").setMinValue(1)),
 
-    run: async ({ client, interaction }) => {
+    run: async (client, interaction) => {
 
         const queue = client.player.getQueue(interaction.guildId)
 
         let embed = new MessageEmbed()
 
         embed
-		.setTitle('Ошибка')
-		.setDescription('В очереди нет треков')
+		    .setTitle('Ошибка')
+		    .setDescription('В очереди нет треков')
 
         if (!queue || !queue.playing) {
             return await interaction.reply({embeds: [embed], ephemeral: true})
@@ -26,8 +26,8 @@ module.exports = {
         const page = (interaction.options.getNumber("page") || 1) - 1
 
         embed
-		.setTitle('Неверная страница')
-		.setDescription(`Всего есть только ${totalPages} страниц с треками`)
+		    .setTitle('Неверная страница')
+		    .setDescription(`Всего есть только ${totalPages} страниц с треками`)
 
         if (page > totalPages) {
             return await interaction.reply({embeds: [embed], ephemeral: true})

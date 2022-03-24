@@ -12,7 +12,7 @@ module.exports = {
 				.setDescription("Воспроизводит трек или плейлист из youtube или spotify")
 				.addStringOption((option) => option.setName("url").setDescription("Ссылка на трек или плейлист").setRequired(true))
 		),
-    run: async ({ client, interaction }) => {
+    run: async (client, interaction) => {
 
         await interaction.deferReply({ ephemeral: true })
 
@@ -34,7 +34,7 @@ module.exports = {
                 requestedBy: interaction.user,
                 searchEngine: QueryType.AUTO
             })
-            console.log(result.tracks.length)
+
             if (result.tracks.length === 0) {
                 embed
                     .setTitle('Ошибка')

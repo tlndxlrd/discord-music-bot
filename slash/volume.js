@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js")
 module.exports = {
 	data: new SlashCommandBuilder().setName("volume").setDescription("Регулировка громкости")
     .addNumberOption((option) => option.setName("set_volume").setDescription("Напишите громность от 0 до 100").setRequired(true).setMaxValue(100).setMinValue(0)),
-	run: async ({ client, interaction }) => {
+	run: async (client, interaction) => {
 		
 		const queue = client.player.getQueue(interaction.guildId)
 
@@ -19,8 +19,8 @@ module.exports = {
 		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
         embed
-		.setTitle('Ошибка')
-		.setDescription("Введите корректное число")
+			.setTitle('Ошибка')
+			.setDescription("Введите корректное число")
 
         if(volume > 100) {
             return interaction.reply({embeds: [embed], ephemeral: true})
@@ -31,8 +31,8 @@ module.exports = {
         }
 
         embed
-		.setTitle('Выполнено')
-		.setDescription(`Текущая громкость ${volume}`)
+			.setTitle('Выполнено')
+			.setDescription(`Текущая громкость ${volume}`)
 
 		await queue.setVolume(volume)
 

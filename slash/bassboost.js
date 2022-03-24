@@ -10,7 +10,7 @@ module.exports = {
     .addChoice('Сильно усилить', 'bassboost_high')
     .addChoice('Выключить фильтр', 'delfilter')),
     
-	run: async ({ client, interaction }) => {
+	run: async (client, interaction) => {
         
         const queue = client.player.getQueue(interaction.guildId)
 

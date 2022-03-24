@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders")
 
 module.exports = {
 	data: new SlashCommandBuilder().setName("help").setDescription("Помощь с командами бота"),
-	run: async ({ client, interaction }) => {
+	run: async (client, interaction) => {
         let embed = new MessageEmbed
         embed
             .setAuthor({name:`Список команд Бота`, iconURL: `${client.user.displayAvatarURL()}`})
