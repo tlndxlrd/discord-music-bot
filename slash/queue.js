@@ -42,7 +42,7 @@ module.exports = {
         embed
             .setTitle('Выполнено')
             .setDescription(`**Сейчас играет**\n` + 
-            (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.title} -- <@${currentSong.requestedBy.id}>` : "None") +
+            (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.author}  - ${currentSong.title} -- <@${currentSong.requestedBy.id}>` : "None") +
             `\n\n**Очередь**\n${queueString}`
             )
             .setFooter({

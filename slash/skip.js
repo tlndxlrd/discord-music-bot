@@ -21,7 +21,7 @@ module.exports = {
 		
 		embed
 			.setTitle('Выполнено')
-			.setDescription(`${currentSong.title} был пропущен!`)
+			.setDescription(`${currentSong.author} - ${currentSong.title} был пропущен!`)
 			.setThumbnail(currentSong.thumbnail)
 
         await interaction.reply({
