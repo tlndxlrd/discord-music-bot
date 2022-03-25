@@ -15,7 +15,6 @@
     "@discordjs/opus": "^0.5.3",
     "@discordjs/rest": "^0.3.0",
     "@discordjs/voice": "^0.8.0",
-    "@distube/spotify": "^1.2.1",
     "@distube/yt-dlp": "^1.0.2",
     "ascii-table": "^0.0.9",
     "colors": "^1.4.0",

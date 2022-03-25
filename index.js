@@ -31,25 +31,10 @@ client.aliases = new Discord.Collection();
 client.slashCommand = new Discord.Collection();
 module.exports.client = client
 
-
-
-const {DisTube} = require('distube')
-const {SpotifyPlugin} = require('@distube/spotify')
+require("discord-player/smoothVolume");
 
 const player = client.player = new Player(client, {
-    emitNewSongOnly: true,
-    leaveOnFinish: true,
-    emitAddSongWhenCreatingQueue: false,
-    plugins: [new SpotifyPlugin(
-        {
-            parallel: true,
-            emitEventsAfterFetching: false,
-            api: {
-              clientId: SPOTIFY_ID,
-              clientSecret: SPOTIFY_TOKEN,
-            },
-          
-    })],
+    bufferingTimeout: 1000,
     ytdlOptions: {
         quality: "highestaudio",
         highWaterMark: 1 << 25
@@ -67,7 +52,13 @@ player.on("trackStart", async (queue, track) => {
     .setDescription(`Сейчас играет [${track.author} - ${track.title}](${track.url})`)
     .setFooter({text: `Длительность ${track.duration}`})
 
-    queue.metadata.channel.send({embeds: [embed]})
+    await queue.metadata.channel.send({embeds: [embed]})
+    
+    await client.user.setActivity(`${track.author} - ${track.title}`, { type: "LISTENING"});
+})
+
+player.on('trackEnd', async (queue, track) => {
+    client.user.setActivity(client.user.username, { type: "PLAYING"});
 })
 
 var express = require('express');

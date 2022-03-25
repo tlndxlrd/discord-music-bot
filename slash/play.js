@@ -53,6 +53,11 @@ module.exports = {
                         .setTitle('Выполнено')
                         .setDescription(`**${result.tracks.length} треков с плейлиста [${playlist.title}](${playlist.url})** добавлены в очередь`)
                         .setThumbnail(playlist.thumbnail)
+
+                        if (!queue.playing) {await queue.play()}
+
+                        return await interaction.channel.send({
+                            embeds: [embed]})
                 } catch (e) {
                     console.log(e)
                 }
@@ -68,6 +73,8 @@ module.exports = {
                 .setDescription(`Трек добавлен в очередь [${track.author} - ${track.title}](${track.url})`)
                 .setFooter({text: `Длительность ${track.duration}`})
 
+                if (!queue.playing) {await queue.play()}
+                
                 return await interaction.channel.send({
                     embeds: [embed]
                 }) 
