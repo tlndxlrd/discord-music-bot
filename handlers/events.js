@@ -1,4 +1,5 @@
 const client = require('../index').client
+const player = require('../index').player
 const fs = require("fs");
 const ascii = require("ascii-table");
 let table = new ascii("Events");

@@ -6,6 +6,7 @@ const fs = require("fs")
 const { Player } = require("discord-player")
 const colors = require('colors')
 const {readdirSync} = require('fs')
+const { MessageEmbed } = require("discord.js")
 
 dotenv.config()
 const TOKEN = process.env.TOKEN
@@ -31,10 +32,11 @@ client.slashCommand = new Discord.Collection();
 module.exports.client = client
 
 
+
 const {DisTube} = require('distube')
 const {SpotifyPlugin} = require('@distube/spotify')
 
-client.player = new Player(client, {
+const player = client.player = new Player(client, {
     emitNewSongOnly: true,
     leaveOnFinish: true,
     emitAddSongWhenCreatingQueue: false,
@@ -54,9 +56,23 @@ client.player = new Player(client, {
     }
 })
 
+module.exports.player = player
+
+player.on("trackStart", async (queue, track) => {
+    let embed = new MessageEmbed()
+
+    embed
+    .setAuthor({name:`Player`, iconURL: `${client.user.displayAvatarURL()}`})
+    .setThumbnail(track.thumbnail)
+    .setDescription(`Сейчас играет [${track.author} - ${track.title}](${track.url})`)
+    .setFooter({text: `Длительность ${track.duration}`})
+
+    queue.metadata.channel.send({embeds: [embed]})
+})
+
 var express = require('express');
 var app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
 });

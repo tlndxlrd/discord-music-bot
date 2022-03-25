@@ -22,6 +22,7 @@ module.exports = {
         const song = queue.current
 
 		embed
+			.setTitle('Выполнено')
 			.setThumbnail(song.thumbnail)
 			.setDescription(`Сейчас играет [${song.author} - ${song.title}](${song.url})\n\n` + bar)
 

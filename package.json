@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js",
+    "start1": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +26,7 @@
     "express": "^4.17.3",
     "ffmpeg-static": "^4.4.1",
     "libsodium-wrappers": "^0.7.9",
+    "nodemon": "^2.0.15",
     "yt-search": "^2.10.3",
     "ytdl-core": "^4.11.0"
   }

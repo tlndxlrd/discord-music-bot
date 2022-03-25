@@ -24,7 +24,11 @@ module.exports = {
 
         if (!interaction.member.voice.channel) return interaction.editReply({ embeds: [embed] })
 
-        const queue = await client.player.createQueue(interaction.guild)
+        const queue = await client.player.createQueue(interaction.guild, {
+            metadata: {
+                channel: interaction.channel
+            }
+        })
 
         if (!queue.connection) await queue.connect(interaction.member.voice.channel)
 
@@ -54,15 +58,26 @@ module.exports = {
                 }
             }
 
+            if(queue.previousTracks > [0]) {
+                const track = result.tracks[0]
+                await queue.addTrack(track)
+
+                embed
+                .setTitle('Выполнено')
+                .setThumbnail(track.thumbnail)
+                .setDescription(`Трек добавлен в очередь [${track.author} - ${track.title}](${track.url})`)
+                .setFooter({text: `Длительность ${track.duration}`})
+
+                return await interaction.channel.send({
+                    embeds: [embed]
+                }) 
+            }
             const song = result.tracks[0]
             if (song) {
                 try {
                     await queue.addTrack(song)
-                    embed
-                        .setTitle('Выполнено')
-                        .setDescription(`**[${song.author} - ${song.title}](${song.url})** трек добавлен в очередь`)
-                        .setThumbnail(song.thumbnail)
-                        .setFooter({ text: `Дата: ${song.duration}` })
+                    if (!queue.playing) {await queue.play()}
+                    return
                 } catch (e) {
                     console.log(e)
                 }

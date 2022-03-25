@@ -1,5 +1,5 @@
 
-module.exports = (client,interaction )=> {
+module.exports = (client, interaction )=> {
     async function handleCommand() {
         
         let slashcmd = client.slashcommands.get(interaction.commandName)

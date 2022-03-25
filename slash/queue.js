@@ -34,12 +34,13 @@ module.exports = {
         }
         
         const queueString = queue.tracks.slice(page * 10, page * 10 + 10).map((song, i) => {
-            return `**${page * 10 + i + 1}.** \`[${song.duration}]\` ${song.title} -- <@${song.requestedBy.id}>`
+            return `**${page * 10 + i + 1}.** \`[${song.duration}]\` ${song.author} - ${song.title} -- <@${song.requestedBy.id}>`
         }).join("\n")
 
         const currentSong = queue.current
 
         embed
+            .setTitle('Выполнено')
             .setDescription(`**Сейчас играет**\n` + 
             (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.title} -- <@${currentSong.requestedBy.id}>` : "None") +
             `\n\n**Очередь**\n${queueString}`
