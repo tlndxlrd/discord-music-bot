@@ -28,7 +28,7 @@
     "libsodium-wrappers": "^0.7.9",
     "minimist": "^1.2.6",
     "nodemon": "^2.0.15",
-    "yt-search": "^2.10.3",
+    "yt-search": "^0.1.1",
     "ytdl-core": "^4.11.0"
   }
 }
