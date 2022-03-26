@@ -7,7 +7,7 @@ ___
 
 ____
 
-# Music bot for **Discrod**
+# Music bot for **Discord**
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/tlndxlrd/discord-music-bot)
 ___
 # **Author**
