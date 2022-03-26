@@ -3,8 +3,7 @@
 ### *xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*
 ___
 
-<p align="center"><img src="https://cdn.discordapp.com/attachments/704677949730848769/957385816374640680/1.gif"
-</p>
+<p align="center"><img src="https://cdn.discordapp.com/attachments/704677949730848769/957403404232196166/777.gif"</p>
 
 ____
 
