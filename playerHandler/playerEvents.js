@@ -1,22 +1,19 @@
-const client = require('../index').client
+const player = require('../index').player
 const fs = require("fs");
 const ascii = require("ascii-table");
-let table = new ascii("Events");
+let table = new ascii("Player");
 table.setHeading("Events", "Load status");
 const allevents = [];
 
 module.exports = async () => {
   try{
-    const load_dir = (dir) => {
-      const event_files = fs.readdirSync(`./events/${dir}`).filter((file) => file.endsWith(".js"));
+      const event_files = fs.readdirSync(`./playerevents/`).filter((file) => file.endsWith(".js"));
       for (const file of event_files){
-        const event = require(`../events/${dir}/${file}`)
+        const event = require(`../playerevents/${file}`)
         let eventName = file.split(".")[0];
         allevents.push(eventName);
-        client.on(eventName, event.bind(null, client));
+        player.on(eventName, event.bind(null));
       }
-    }
-    await ["client", "guild"].forEach(e=>load_dir(e));
     for (let i = 0; i < allevents.length; i++) {
         try {
             table.addRow(allevents[i], "Ready");

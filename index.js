@@ -6,12 +6,9 @@ const fs = require("fs")
 const { Player } = require("discord-player")
 const colors = require('colors')
 const {readdirSync} = require('fs')
-const { MessageEmbed } = require("discord.js")
 
 dotenv.config()
 const TOKEN = process.env.TOKEN
-const SPOTIFY_TOKEN = process.env.SPOTIFY_TOKEN
-const SPOTIFY_ID = process.env.SPOTIFY_ID
 
 const LOAD_SLASH = process.argv[2] == "load"
 
@@ -27,8 +24,8 @@ const client = new Discord.Client({
 
 client.slashcommands = new Discord.Collection()
 client.events = new Discord.Collection();
-client.aliases = new Discord.Collection();
-client.slashCommand = new Discord.Collection();
+
+
 module.exports.client = client
 
 require("discord-player/smoothVolume");
@@ -41,25 +38,8 @@ const player = client.player = new Player(client, {
     }
 })
 
+player.playerEvents = new Discord.Collection();
 module.exports.player = player
-
-player.on("trackStart", async (queue, track) => {
-    let embed = new MessageEmbed()
-
-    embed
-    .setAuthor({name:`Player`, iconURL: `${client.user.displayAvatarURL()}`})
-    .setThumbnail(track.thumbnail)
-    .setDescription(`Сейчас играет [${track.author} - ${track.title}](${track.url})`)
-    .setFooter({text: `Длительность ${track.duration}`})
-
-    await queue.metadata.channel.send({embeds: [embed]})
-    
-    await client.user.setActivity(`${track.author} - ${track.title}`, { type: "LISTENING"});
-})
-
-player.on('trackEnd', async (queue, track) => {
-    client.user.setActivity(client.user.username, { type: "PLAYING"});
-})
 
 var express = require('express');
 var app = express();
@@ -100,6 +80,15 @@ if (LOAD_SLASH) {
         console.log(e)
     }
 });
+
+["playerEvents"].forEach(playerHandler => {
+    try {
+        require(`./playerHandler/${playerHandler}`)(player)
+    } catch (e) {
+        console.log(e)
+    }
+});
+
 process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 
 client.login(TOKEN)
