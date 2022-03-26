@@ -56,7 +56,7 @@ ___
 npm install
 ```
 
-<h3 style="margin-bottom: 15px"><em>or:</em></h3>
+<h3 style="margin-bottom: 20px"><em>or:</em></h3>
 
 ```
 npm i
