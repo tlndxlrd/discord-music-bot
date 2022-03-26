@@ -102,5 +102,5 @@ ___
 </p>
 
 # **Bugs**
-### *Does not display track covers when adding a track, while tracks in an album or playlist show This is a bug in the disrod-player library.*
+#### *Does not display track covers when adding a track, while tracks in an album or playlist show This is a bug in the disrod-player library.*
 ___
