@@ -1,9 +1,9 @@
 <h1 p align="center"><b>Welcome to tlndxlrd</b></h1>
 
-### *xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*
+### *xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*
 ___
 
-<p align="center"><img src="https://cdn.discordapp.com/attachments/704677949730848769/957403404232196166/777.gif"</p>
+<p align="center"><img src="https://cdn.discordapp.com/attachments/704677949730848769/957404525168320562/anime-art-personazhi-klinok-rassekaiushchii-demonov-demon-sl.jpg"</p>
 
 ____
 
