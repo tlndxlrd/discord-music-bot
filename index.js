@@ -6,7 +6,6 @@ const fs = require("fs")
 const { Player } = require("discord-player")
 const colors = require('colors')
 const {readdirSync} = require('fs')
-const ansiRegex = require('ansi-regex')
 
 
 dotenv.config()
@@ -74,7 +73,7 @@ if (LOAD_SLASH) {
         }
     })
 }
-'\u001B]8;;https://github.com\u0007click\u001B]8;;\u0007'.match(ansiRegex());
+
 ["events"].forEach(handler => {
     try {
         require(`./handlers/${handler}`)(client)
