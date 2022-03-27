@@ -20,7 +20,7 @@ module.exports = {
 
         embed
             .setTitle('❌ |Ошибка')
-            .setDescription("Присоеденитесь к голосовому каналу и опробуйте снова")
+            .setDescription("Присоеденитесь к голосовому каналу и попробуйте снова")
 
         if (!interaction.member.voice.channel) return interaction.editReply({ embeds: [embed] })
 
