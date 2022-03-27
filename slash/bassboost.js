@@ -17,17 +17,17 @@ module.exports = {
         let object = interaction.options._hoistedOptions[0].value
         
         const embed2 = new MessageEmbed()
-		.setTitle('Ошибка')
+		.setTitle('❌ |Ошибка')
 		.setDescription('В очереди нет треков')
 
 		if (!queue) return await interaction.reply({embeds: [embed2], ephemeral: true})
 
         const embed = new MessageEmbed()
-            .setTitle('Режим bassboost активирован')
+            .setTitle('✅ |Режим bassboost активирован')
             .setDescription(`${object} запущен`)
 
         const embed1 = new MessageEmbed()
-            .setTitle('Режим bassboost деактивирован')
+            .setTitle('✅ |Режим bassboost деактивирован')
             .setDescription(`Все фильтры выключены`)
 
         if(object === 'bassboost_low') {

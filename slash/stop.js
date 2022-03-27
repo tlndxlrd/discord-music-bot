@@ -10,7 +10,7 @@ module.exports = {
 		let embed = new MessageEmbed()
 
 		embed
-			.setTitle('Ошибка')
+			.setTitle('❌ |Ошибка')
 			.setDescription('В очереди нет треков')
 
 		if (!queue) return interaction.reply({embeds: [embed], ephemeral: true})
@@ -20,7 +20,7 @@ module.exports = {
 		await queue.destroy()
 
 		embed
-			.setTitle('Выполнено')
+			.setTitle('✅ |Выполнено')
 			.setDescription('Бот остановлен')
 
         await interaction.reply({embeds: [embed], ephemeral: true})

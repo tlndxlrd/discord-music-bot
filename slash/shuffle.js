@@ -10,7 +10,7 @@ module.exports = {
 		let embed = new MessageEmbed()
 
 		embed
-			.setTitle('Ошибка')
+			.setTitle('❌ |Ошибка')
 			.setDescription('В очереди нет треков')
 
 		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
@@ -18,8 +18,8 @@ module.exports = {
 		await queue.shuffle()
 
 		embed
-			.setTitle('Выполнено')
-			.setDescription(`Очередь треков из ${queue.tracks.length} смешана!`)
+			.setTitle('✅ |Выполнено')
+			.setDescription(`🎶 |Очередь треков из ${queue.tracks.length} смешана!`)
 
         await interaction.reply({embeds: [embed], ephemeral: true})
 	},

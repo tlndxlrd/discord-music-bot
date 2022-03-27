@@ -10,7 +10,7 @@ module.exports = {
 		let embed = new MessageEmbed()
 
 		embed
-			.setTitle('Ошибка')
+			.setTitle('❌ |Ошибка')
 			.setDescription('В очереди нет треков')
 
 		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
@@ -18,7 +18,7 @@ module.exports = {
 		await queue.setPaused(false)
 
 		embed
-			.setTitle('Выполнено')
+			.setTitle('✅ |Выполнено')
 			.setDescription('Возобновлено воиспроизведение трека! Используйте `/pause`, чтобы поставить трек на паузу')
 
         await interaction.reply({embeds: [embed], ephemeral: true})

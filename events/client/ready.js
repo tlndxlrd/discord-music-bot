@@ -25,14 +25,18 @@ module.exports = client => {
         console.log(String(e.stack).red);
     }
     try {
-        client.user.setActivity(client.user.username, { type: "PLAYING" });
+        client.user.setActivity({
+            name: "🎶 | Music Time",
+            type: "LISTENING" });
     } catch (e) {
         console.log(String(e.stack).red);
     }
 
     setInterval(() => {
         try {
-            client.user.setActivity(client.user.username, { type: "PLAYING" });
+            client.user.setActivity({
+                name: "🎶 | Music Time",
+                type: "LISTENING"});
         } catch (e) {
             console.log(String(e.stack).red);
         }

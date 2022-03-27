@@ -19,7 +19,7 @@ module.exports = {
         let embed = new MessageEmbed()
 
         embed
-            .setTitle('Ошибка')
+            .setTitle('❌ |Ошибка')
             .setDescription("Присоеденитесь к голосовому каналу и опробуйте снова")
 
         if (!interaction.member.voice.channel) return interaction.editReply({ embeds: [embed] })
@@ -41,7 +41,7 @@ module.exports = {
 
             if (result.tracks.length === 0) {
                 embed
-                    .setTitle('Ошибка')
+                    .setTitle('❌ |Ошибка')
                     .setDescription("Не найдено")
                 return interaction.editReply({ embeds: [embed] })
             }
@@ -52,8 +52,8 @@ module.exports = {
                 try {
                     await queue.addTracks(result.tracks)
                     embed
-                        .setTitle('Выполнено')
-                        .setDescription(`**${result.tracks.length} треков с плейлиста [${playlist.title}](${playlist.url})** добавлены в очередь`)
+                        .setTitle('✅ |Выполнено')
+                        .setDescription(`🎶 |**${result.tracks.length} треков с плейлиста [${playlist.title}](${playlist.url})** добавлены в очередь`)
                         .setThumbnail(playlist.thumbnail)
 
                         if (!queue.playing) {await queue.play()}
@@ -70,10 +70,10 @@ module.exports = {
                 await queue.addTrack(track)
 
                 embed
-                .setTitle('Выполнено')
+                .setTitle('✅ |Выполнено')
                 .setThumbnail(track.thumbnail)
-                .setDescription(`Трек добавлен в очередь [${track.author} - ${track.title}](${track.url})`)
-                .setFooter({text: `Длительность ${track.duration}`})
+                .setDescription(`🎶 |Трек добавлен в очередь [${track.author} - ${track.title}](${track.url})`)
+                .setFooter({text: `🕞 |Длительность ${track.duration}`})
 
                 if (!queue.playing) {await queue.play()}
                 

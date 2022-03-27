@@ -20,7 +20,7 @@ module.exports = {
         const trackNum = interaction.options.getNumber("tracknumber")
 
         embed
-			.setTitle('Ошибка')
+			.setTitle('❌ |Ошибка')
 			.setDescription('Неверный номер трека')
 
         if (trackNum > queue.tracks.length){
@@ -30,7 +30,7 @@ module.exports = {
 		await queue.skipTo(trackNum - 1)
 
 		embed
-			.setTitle('Выполнено')
+			.setTitle('✅ |Выполнено')
 			.setDescription(`Треки пропущены, номер трека ${trackNum}`)
 
         await interaction.reply({embeds: [embed], ephemeral: true})

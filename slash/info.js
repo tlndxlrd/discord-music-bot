@@ -9,7 +9,7 @@ module.exports = {
 		let embed = new MessageEmbed()
 		
 		embed
-			.setTitle('Ошибка')
+			.setTitle('❌ |Ошибка')
 			.setDescription('В очереди нет треков')
 
 		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
@@ -22,9 +22,9 @@ module.exports = {
         const song = queue.current
 
 		embed
-			.setTitle('Выполнено')
+			.setTitle('✅ |Выполнено')
 			.setThumbnail(song.thumbnail)
-			.setDescription(`Сейчас играет [${song.author} - ${song.title}](${song.url})\n\n` + bar)
+			.setDescription(`🎶 |Сейчас играет [${song.author} - ${song.title}](${song.url})\n\n` + bar)
 
 		await interaction.reply({
 			embeds: [embed],

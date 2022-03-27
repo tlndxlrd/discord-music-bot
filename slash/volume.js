@@ -13,13 +13,13 @@ module.exports = {
         let embed = new MessageEmbed()
 
 		embed
-			.setTitle('Ошибка')
+			.setTitle('❌ |Ошибка')
 			.setDescription('В очереди нет треков')
 
 		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
         embed
-			.setTitle('Ошибка')
+			.setTitle('❌ |Ошибка')
 			.setDescription("Введите корректное число")
 
         if(volume > 100) {
@@ -31,7 +31,7 @@ module.exports = {
         }
 
         embed
-			.setTitle('Выполнено')
+			.setTitle('✅ |Выполнено')
 			.setDescription(`Текущая громкость ${volume}`)
 
 		await queue.setVolume(volume)

@@ -18,14 +18,14 @@ module.exports = {
         let embed = new MessageEmbed()
 
         embed
-		    .setTitle('Ошибка')
+		    .setTitle('❌ |Ошибка')
 		    .setDescription('В очереди нет треков')
 
 		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
         if(object === 'queue') {
             embed
-                .setTitle('RepeatMode активирован')
+                .setTitle('✅ |RepeatMode активирован')
                 .setDescription(`Режим автоповтор ${object} запущен`)
 
             await queue.setRepeatMode(3);
@@ -35,7 +35,7 @@ module.exports = {
         }
         if(object === 'track') {
             embed
-                .setTitle('RepeatMode активирован')
+                .setTitle('✅ |RepeatMode активирован')
                 .setDescription(`Режим автоповтор ${object} запущен`)
             await queue.setRepeatMode(2);
             await interaction.reply({
@@ -45,7 +45,7 @@ module.exports = {
 
         if(object === 'delfilter'){
             embed
-                .setTitle('RepeatMode деактивирован')
+                .setTitle('✅ |RepeatMode деактивирован')
                 .setDescription(`Режим автоповтор выключен`)
             await queue.setRepeatMode(1);
             await interaction.reply({

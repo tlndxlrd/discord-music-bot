@@ -10,13 +10,13 @@ module.exports = {
 		let embed = new MessageEmbed()
 		
 		embed
-			.setTitle('Ошибка')
+			.setTitle('❌ |Ошибка')
 			.setDescription('В очереди нет треков')
 
 		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 
 		embed
-			.setTitle('Выполнено')
+			.setTitle('✅ |Выполнено')
 			.setDescription('Трек поставлен ​​на паузу!\nИспользуйте `/resume`, чтобы возобновить трек')
 
 		queue.setPaused(true)

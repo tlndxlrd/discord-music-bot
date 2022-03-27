@@ -7,10 +7,10 @@ module.exports = async (queue, track) => {
     embed
     .setAuthor({name:`Player`, iconURL: `${client.user.displayAvatarURL()}`})
     .setThumbnail(track.thumbnail)
-    .setDescription(`Сейчас играет [${track.author} - ${track.title}](${track.url})`)
-    .setFooter({text: `Длительность ${track.duration}`})
+    .setDescription(`🎶 |Сейчас играет [${track.author} - ${track.title}](${track.url})`)
+    .setFooter({text: `🕞 |Длительность ${track.duration}`})
 
     await queue.metadata.channel.send({embeds: [embed]})
     
-    await client.user.setActivity(`${track.author} - ${track.title}`, { type: "LISTENING"});
+    await client.user.setActivity(`🎶 |${track.author} - ${track.title}`, { type: "LISTENING"});
 }
