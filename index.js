@@ -33,6 +33,7 @@ require("discord-player/smoothVolume");
 
 const player = client.player = new Player(client, {
     bufferingTimeout: 1000,
+    spotifyBridge: false,
     ytdlOptions: {
         quality: "highestaudio",
         highWaterMark: 1 << 25

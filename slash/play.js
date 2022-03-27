@@ -45,7 +45,9 @@ module.exports = {
                     .setDescription("Не найдено")
                 return interaction.editReply({ embeds: [embed] })
             }
+            console.log()
             const playlist = result.playlist
+            const song = result.tracks[0]
             if (playlist) {
                 try {
                     await queue.addTracks(result.tracks)
@@ -63,7 +65,7 @@ module.exports = {
                 }
             }
 
-            if(queue.previousTracks > [0]) {
+            if(queue.previousTracks[0]) {
                 const track = result.tracks[0]
                 await queue.addTrack(track)
 
@@ -79,12 +81,13 @@ module.exports = {
                     embeds: [embed]
                 }) 
             }
-            const song = result.tracks[0]
+            
             if (song) {
                 try {
                     await queue.addTrack(song)
-                    if (!queue.playing) {await queue.play()}
+                    if (!queue.playing) await queue.play();
                     return
+
                 } catch (e) {
                     console.log(e)
                 }
