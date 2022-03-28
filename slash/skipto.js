@@ -13,7 +13,7 @@ module.exports = {
 
 		embed
 			.setTitle('Ошибка')
-			.setDescription('В очереди нет треков')
+			.setDescription('В настоящее время трек не воспроизводится')
 
 		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
 

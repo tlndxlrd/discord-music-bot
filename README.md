@@ -45,6 +45,8 @@ ___
 /repeat - auto-repeat tracks
 
 /volume - change track volume
+
+/lyrics - displays the lyrics of the current song or a specific track
 ```
 ___
 # **Installation**

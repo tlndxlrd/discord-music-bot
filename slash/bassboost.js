@@ -18,7 +18,7 @@ module.exports = {
         
         const embed2 = new MessageEmbed()
 		.setTitle('❌ |Ошибка')
-		.setDescription('В очереди нет треков')
+		.setDescription('В настоящее время трек не воспроизводится')
 
 		if (!queue) return await interaction.reply({embeds: [embed2], ephemeral: true})
 
