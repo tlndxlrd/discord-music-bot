@@ -10,7 +10,7 @@ module.exports = {
 			subcommand
 				.setName("song_playlist_search")
 				.setDescription("Воспроизводит трек или плейлист из youtube или spotify")
-				.addStringOption((option) => option.setName("url").setDescription("Ссылка на трек или плейлист").setRequired(true))
+				.addStringOption((option) => option.setName("url_name").setDescription("Ссылка/название на трек или плейлист").setRequired(true))
 		),
     run: async (client, interaction) => {
 
@@ -33,7 +33,7 @@ module.exports = {
         if (!queue.connection) await queue.connect(interaction.member.voice.channel)
 
         if (interaction.options.getSubcommand() === "song_playlist_search") {
-            let url = interaction.options.getString("url")
+            let url = interaction.options.getString("url_name")
             const result = await client.player.search(url, {
                 requestedBy: interaction.user,
                 searchEngine: QueryType.AUTO
