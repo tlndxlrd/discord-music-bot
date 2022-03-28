@@ -75,17 +75,9 @@ if (LOAD_SLASH) {
     })
 }
 
-["events"].forEach(handler => {
+["events", "playerEvents"].forEach(handler => {
     try {
-        require(`./handlers/${handler}`)(client)
-    } catch (e) {
-        console.log(e)
-    }
-});
-
-["playerEvents"].forEach(playerHandler => {
-    try {
-        require(`./playerHandler/${playerHandler}`)(player)
+        require(`./handlers/${handler}`)(client, player)
     } catch (e) {
         console.log(e)
     }
