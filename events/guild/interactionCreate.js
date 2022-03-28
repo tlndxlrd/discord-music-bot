@@ -12,6 +12,3 @@ module.exports = (client, interaction )=> {
     handleCommand()
 }
 
-// client.on("interactionCreate", (interaction) => {
-
-// })
