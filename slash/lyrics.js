@@ -35,13 +35,13 @@ const createResponse = async (title) => {
             return new MessageEmbed({
                 title: isFirst ? `${data.title} - ${data.author}` : null,
                 thumbnail: isFirst ? { url: data.thumbnail.genius } : null,
-                description: value
+                description: value,
             });
         });
 
         return { embeds };
     } catch (error) {
-        return "Не могу найти текст этой песни :(";
+        
     }
 };
 
@@ -53,14 +53,27 @@ module.exports = {
         .setDescription("Название трека для текста").setRequired(false)),
 
     run: async (client, interaction) => {
+        await interaction.deferReply({ ephemeral: true })
         const title = interaction.options.getString("title");
+        const embed5 = new MessageEmbed({
+            title: '❌ |Ошибка',
+            description: 'Не могу найти текст этой песни :('
+        })
+        
         const sendLyrics = (songTitle) => {
-            return createResponse(songTitle)
+            try {
+                return createResponse(songTitle)
                 .then((res) => {
                     console.log({ res });
-                    interaction.reply(res);
+                    if(res === undefined) {
+                        return interaction.editReply({embeds:[embed5]})
+                    }
+                    interaction.channel.send(res);
                 })
-                .catch((err) => console.log({ err }));
+            } catch (e) {
+                
+            }
+
         };
 
         if (title) return sendLyrics(title);
