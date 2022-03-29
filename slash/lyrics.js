@@ -87,7 +87,7 @@ module.exports = {
         .setTitle('❌ |Ошибка')
         .setDescription('В настоящее время трек не воспроизводится')
         if (!queue?.playing)
-            return interaction.reply({
+            return interaction.editReply({
                 embeds: [embed1]
             });
 
