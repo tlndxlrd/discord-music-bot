@@ -11,20 +11,16 @@ const {readdirSync} = require('fs')
 dotenv.config()
 const TOKEN = process.env.TOKEN
 
-const LOAD_SLASH = process.argv[2] == "load"
-
-const CLIENT_ID = process.env.CLIENT_ID
-const GUILD_ID = process.env.GUILD_ID
-
 const client = new Discord.Client({
     intents: [
         "GUILDS",
         "GUILD_VOICE_STATES"
     ]
-})
+});
 
-client.slashcommands = new Discord.Collection()
+client.slashcommands = new Discord.Collection();
 client.events = new Discord.Collection();
+client.hadlerButtons = new Discord.Collection();
 
 
 module.exports.client = client
@@ -38,7 +34,7 @@ const player = client.player = new Player(client, {
         quality: "highestaudio"
 
     }
-})
+});
 
 player.playerEvents = new Discord.Collection();
 module.exports.player = player
@@ -50,32 +46,8 @@ app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
 });
 
-let commands = []
 
-    const slashFiles = readdirSync(`./slash`).filter((file) => file.endsWith(".js"));
-    for (let file of slashFiles) {
-        const slashcmd = require(`./slash/${file}`)
-        client.slashcommands.set(slashcmd.data.name, slashcmd)
-        if (LOAD_SLASH) commands.push(slashcmd.data.toJSON())
-    }
-
-if (LOAD_SLASH) {
-    const rest = new REST({ version: "9" }).setToken(TOKEN)
-    console.log("Deploying slash commands")
-    rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {body: commands})
-    .then(() => {
-        console.log("Successfully loaded")
-        process.exit(0)
-    })
-    .catch((err) => {
-        if (err){
-            console.log(err)
-            process.exit(1)
-        }
-    })
-}
-
-["events", "playerEvents"].forEach(handler => {
+["events", "playerEvents", "hadlerButtons", "slashcommands"].forEach(handler => {
     try {
         require(`./handlers/${handler}`)(client, player)
     } catch (e) {
@@ -85,4 +57,4 @@ if (LOAD_SLASH) {
 
 process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 
-client.login(TOKEN)
+client.login(TOKEN);
