@@ -1,18 +1,18 @@
-module.exports = async (client, newstate, oldstate)=> {
-    const oldChannel = oldstate.channel
-    const newChannel = newstate.channel
+module.exports = async (client, newstate, oldstate) => {
+  const oldChannel = oldstate.channel
+  const newChannel = newstate.channel
 
-    if (newChannel != undefined && oldChannel == undefined) {
+  if (newChannel != undefined && oldChannel == undefined) {
 
-      if (newstate.guild.me.voice.channel?.id == newChannel.id) {
+    if (newstate.guild.me.voice.channel?.id == newChannel.id) {
 
-        if (newChannel.members.size <= 1) {
+      if (newChannel.members.size <= 1) {
 
         let clienter = client.player;
 
         if (newstate.guild.me == client.user.id)
 
-        clienter = client.player;
+          clienter = client.player;
 
         const queue = clienter.getQueue(oldstate.guild.id);
 
@@ -21,7 +21,7 @@ module.exports = async (client, newstate, oldstate)=> {
         await queue.clear()
 
         await queue.destroy();
-        }
       }
     }
   }
+}

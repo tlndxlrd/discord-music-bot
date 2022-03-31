@@ -7,19 +7,19 @@ module.exports = {
 		const queue = client.player.getQueue(interaction.guildId)
 
 		let embed = new MessageEmbed()
-		
+
 		embed
 			.setTitle('❌ |Ошибка')
 			.setDescription('В настоящее время трек не воспроизводится')
 
-		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
+		if (!queue) return await interaction.reply({ embeds: [embed], ephemeral: true })
 
 		let bar = queue.createProgressBar({
 			queue: false,
 			length: 19,
 		})
 
-        const song = queue.current
+		const song = queue.current
 
 		embed
 			.setTitle('✅ |Выполнено')
@@ -28,6 +28,7 @@ module.exports = {
 
 		await interaction.reply({
 			embeds: [embed],
-		ephemeral: true})
+			ephemeral: true
+		})
 	},
 }

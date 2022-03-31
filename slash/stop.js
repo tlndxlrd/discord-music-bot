@@ -13,16 +13,16 @@ module.exports = {
 			.setTitle('❌ |Ошибка')
 			.setDescription('В настоящее время трек не воспроизводится')
 
-		if (!queue) return interaction.reply({embeds: [embed], ephemeral: true})
+		if (!queue) return interaction.reply({ embeds: [embed], ephemeral: true })
 
 		await queue.clear()
-		
+
 		await queue.destroy()
 
 		embed
 			.setTitle('✅ |Выполнено')
 			.setDescription('Бот остановлен')
 
-        await interaction.reply({embeds: [embed], ephemeral: true})
+		await interaction.reply({ embeds: [embed], ephemeral: true })
 	},
 }

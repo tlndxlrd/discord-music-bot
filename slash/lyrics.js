@@ -41,16 +41,16 @@ const createResponse = async (title) => {
 
         return { embeds };
     } catch (error) {
-        
+
     }
 };
 
 module.exports = {
     data: new SlashCommandBuilder().setName("lyrics")
-    .setDescription("Отображает текст текущей песни или конкретного трека")
-    .addStringOption((option) => option
-        .setName("title")
-        .setDescription("Название трека для текста").setRequired(false)),
+        .setDescription("Отображает текст текущей песни или конкретного трека")
+        .addStringOption((option) => option
+            .setName("title")
+            .setDescription("Название трека для текста").setRequired(false)),
 
     run: async (client, interaction) => {
         await interaction.deferReply({ ephemeral: true })
@@ -59,19 +59,19 @@ module.exports = {
             title: '❌ |Ошибка',
             description: 'Не могу найти текст этой песни :('
         })
-        
+
         const sendLyrics = (songTitle) => {
             try {
                 return createResponse(songTitle)
-                .then((res) => {
-                    console.log({ res });
-                    if(res === undefined) {
-                        return interaction.editReply({embeds:[embed5]})
-                    }
-                    interaction.channel.send(res);
-                })
+                    .then((res) => {
+                        console.log({ res });
+                        if (res === undefined) {
+                            return interaction.editReply({ embeds: [embed5] })
+                        }
+                        interaction.channel.send(res);
+                    })
             } catch (e) {
-                
+
             }
 
         };
@@ -84,8 +84,8 @@ module.exports = {
             }
         })
         const embed1 = new MessageEmbed()
-        .setTitle('❌ |Ошибка')
-        .setDescription('В настоящее время трек не воспроизводится')
+            .setTitle('❌ |Ошибка')
+            .setDescription('В настоящее время трек не воспроизводится')
         if (!queue?.playing)
             return interaction.editReply({
                 embeds: [embed1]

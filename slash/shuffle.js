@@ -13,7 +13,7 @@ module.exports = {
 			.setTitle('❌ |Ошибка')
 			.setDescription('В очереди нет треков')
 
-		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
+		if (!queue) return await interaction.reply({ embeds: [embed], ephemeral: true })
 
 		await queue.shuffle()
 
@@ -21,6 +21,6 @@ module.exports = {
 			.setTitle('✅ |Выполнено')
 			.setDescription(`🎶 |Очередь треков из ${queue.tracks.length} смешана!`)
 
-        await interaction.reply({embeds: [embed], ephemeral: true})
+		await interaction.reply({ embeds: [embed], ephemeral: true })
 	},
 }

@@ -3,27 +3,27 @@ const { MessageEmbed } = require("discord.js")
 
 
 module.exports = {
-	data: new SlashCommandBuilder().setName("repeat").setDescription("Автоповтор")
-    .addStringOption((option) => option.setName('repeat_mode').setDescription('Режим автоповтора').setRequired(true)
-    .addChoice('Очередь', 'queue')
-    .addChoice('Трек', 'track')
-    .addChoice('Выключить', 'delfilter')),
-    
-	run: async (client, interaction) => {
-        
+    data: new SlashCommandBuilder().setName("repeat").setDescription("Автоповтор")
+        .addStringOption((option) => option.setName('repeat_mode').setDescription('Режим автоповтора').setRequired(true)
+            .addChoice('Очередь', 'queue')
+            .addChoice('Трек', 'track')
+            .addChoice('Выключить', 'delfilter')),
+
+    run: async (client, interaction) => {
+
         const queue = client.player.getQueue(interaction.guildId)
 
         let object = interaction.options._hoistedOptions[0].value
-        
+
         let embed = new MessageEmbed()
 
         embed
-		    .setTitle('❌ |Ошибка')
-		    .setDescription('В настоящее время трек не воспроизводится')
+            .setTitle('❌ |Ошибка')
+            .setDescription('В настоящее время трек не воспроизводится')
 
-		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
+        if (!queue) return await interaction.reply({ embeds: [embed], ephemeral: true })
 
-        if(object === 'queue') {
+        if (object === 'queue') {
             embed
                 .setTitle('✅ |RepeatMode активирован')
                 .setDescription(`Режим автоповтор ${object} запущен`)
@@ -33,7 +33,7 @@ module.exports = {
                 embeds: [embed], ephemeral: true
             })
         }
-        if(object === 'track') {
+        if (object === 'track') {
             embed
                 .setTitle('✅ |RepeatMode активирован')
                 .setDescription(`Режим автоповтор ${object} запущен`)
@@ -43,7 +43,7 @@ module.exports = {
             })
         }
 
-        if(object === 'delfilter'){
+        if (object === 'delfilter') {
             embed
                 .setTitle('✅ |RepeatMode деактивирован')
                 .setDescription(`Режим автоповтор выключен`)

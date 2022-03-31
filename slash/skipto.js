@@ -3,36 +3,36 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
 	data: new SlashCommandBuilder().setName("skipto").setDescription("Переход к определенному треку в очереди")
-    .addNumberOption((option) => 
-        option.setName("tracknumber").setDescription("Трек, на который нужно перейти").setMinValue(1).setRequired(true)),
+		.addNumberOption((option) =>
+			option.setName("tracknumber").setDescription("Трек, на который нужно перейти").setMinValue(1).setRequired(true)),
 	run: async (client, interaction) => {
 
 		const queue = client.player.getQueue(interaction.guildId)
 
-        let embed = new MessageEmbed()
+		let embed = new MessageEmbed()
 
 		embed
 			.setTitle('Ошибка')
 			.setDescription('В настоящее время трек не воспроизводится')
 
-		if (!queue) return await interaction.reply({embeds: [embed], ephemeral: true})
+		if (!queue) return await interaction.reply({ embeds: [embed], ephemeral: true })
 
-        const trackNum = interaction.options.getNumber("tracknumber")
+		const trackNum = interaction.options.getNumber("tracknumber")
 
-        embed
+		embed
 			.setTitle('❌ |Ошибка')
 			.setDescription('Неверный номер трека')
 
-        if (trackNum > queue.tracks.length){
-			return await interaction.reply({embeds: [embed], ephemeral: true})
+		if (trackNum > queue.tracks.length) {
+			return await interaction.reply({ embeds: [embed], ephemeral: true })
 		}
-        
+
 		await queue.skipTo(trackNum - 1)
 
 		embed
 			.setTitle('✅ |Выполнено')
 			.setDescription(`Треки пропущены, номер трека ${trackNum}`)
 
-        await interaction.reply({embeds: [embed], ephemeral: true})
+		await interaction.reply({ embeds: [embed], ephemeral: true })
 	},
 }

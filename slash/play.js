@@ -3,15 +3,15 @@ const { MessageEmbed } = require("discord.js")
 const { QueryType } = require("discord-player")
 
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName("play")
-		.setDescription("Воспроизводит треки с youtube или spotify")
-		.addSubcommand((subcommand) =>
-			subcommand
-				.setName("song_playlist_search")
-				.setDescription("Воспроизводит трек или плейлист из youtube или spotify")
-				.addStringOption((option) => option.setName("url_name").setDescription("Ссылка/название на трек или плейлист").setRequired(true))
-		),
+    data: new SlashCommandBuilder()
+        .setName("play")
+        .setDescription("Воспроизводит треки с youtube или spotify")
+        .addSubcommand((subcommand) =>
+            subcommand
+                .setName("song_playlist_search")
+                .setDescription("Воспроизводит трек или плейлист из youtube или spotify")
+                .addStringOption((option) => option.setName("url_name").setDescription("Ссылка/название на трек или плейлист").setRequired(true))
+        ),
     run: async (client, interaction) => {
 
         await interaction.deferReply({ ephemeral: true })
@@ -56,32 +56,33 @@ module.exports = {
                         .setDescription(`🎶 |**${result.tracks.length} треков с плейлиста [${playlist.title}](${playlist.url})** добавлены в очередь`)
                         .setThumbnail(playlist.thumbnail)
 
-                        if (!queue.playing) {await queue.play()}
+                    if (!queue.playing) { await queue.play() }
 
-                        return await interaction.channel.send({
-                            embeds: [embed]})
+                    return await interaction.channel.send({
+                        embeds: [embed]
+                    })
                 } catch (e) {
                     console.log(e)
                 }
             }
 
-            if(queue.previousTracks[0]) {
+            if (queue.previousTracks[0]) {
                 const track = result.tracks[0]
                 await queue.addTrack(track)
 
                 embed
-                .setTitle('✅ |Выполнено')
-                .setThumbnail(track.thumbnail)
-                .setDescription(`🎶 |Трек добавлен в очередь [${track.author} - ${track.title}](${track.url})`)
-                .setFooter({text: `🕞 |Длительность ${track.duration}`})
+                    .setTitle('✅ |Выполнено')
+                    .setThumbnail(track.thumbnail)
+                    .setDescription(`🎶 |Трек добавлен в очередь [${track.author} - ${track.title}](${track.url})`)
+                    .setFooter({ text: `🕞 |Длительность ${track.duration}` })
 
-                if (!queue.playing) {await queue.play()}
-                
+                if (!queue.playing) { await queue.play() }
+
                 return await interaction.channel.send({
                     embeds: [embed]
-                }) 
+                })
             }
-            
+
             if (song) {
                 try {
                     await queue.addTrack(song)

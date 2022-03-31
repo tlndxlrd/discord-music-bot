@@ -12,7 +12,7 @@ module.exports = client => {
         console.log(e)
     }
     try {
-        function PingStatus(){
+        function PingStatus() {
             const stringlength = 69;
             console.log("\n")
             console.log(`     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━┓`.bold.brightGreen)
@@ -27,7 +27,8 @@ module.exports = client => {
     try {
         client.user.setActivity({
             name: "🎶 | Music Time",
-            type: "LISTENING" });
+            type: "LISTENING"
+        });
     } catch (e) {
         console.log(String(e.stack).red);
     }
@@ -36,7 +37,8 @@ module.exports = client => {
         try {
             client.user.setActivity({
                 name: "🎶 | Music Time",
-                type: "LISTENING"});
+                type: "LISTENING"
+            });
         } catch (e) {
             console.log(String(e.stack).red);
         }
