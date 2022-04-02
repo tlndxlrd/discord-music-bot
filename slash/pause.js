@@ -19,7 +19,16 @@ module.exports = {
 			.setTitle('✅ |Выполнено')
 			.setDescription('Трек поставлен ​​на паузу!\nИспользуйте `/resume`, чтобы возобновить трек')
 
-		queue.setPaused(true)
+		if (queue.connection.paused === true) {
+			embed
+				.setTitle('❌ |Ошибка')
+				.setDescription('Трек уже на паузе')
+			await interaction.reply({ embeds: [embed], ephemeral: true })
+			return
+		}
+
+		await queue.setPaused(true)
+
 		await interaction.reply({ embeds: [embed], ephemeral: true })
 	},
 }

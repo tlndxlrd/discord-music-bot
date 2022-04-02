@@ -15,6 +15,14 @@ module.exports = {
 
 		if (!queue) return await interaction.reply({ embeds: [embed], ephemeral: true })
 
+		if (queue.connection.paused === false) {
+            embed
+            .setTitle('❌ |Ошибка')
+            .setDescription('Трек уже воспроизводиться')
+            await interaction.reply({ embeds: [embed], ephemeral: true })
+            return
+        }
+
 		await queue.setPaused(false)
 
 		embed

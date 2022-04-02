@@ -20,7 +20,7 @@ module.exports = client => {
             console.log(`     ┃ `.bold.brightGreen + `  ${client.user.tag}`.bold.brightGreen + " ".repeat(-1 + stringlength - ` ┃ `.length - `                                          ${client.user.tag}`.length) + "┃".bold.brightGreen)
             console.log(`     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━┛`.bold.brightGreen)
         }
-        setInterval(PingStatus, 10000)
+        setInterval(PingStatus, 1000*60)
     } catch (e) {
         console.log(String(e.stack).red);
     }

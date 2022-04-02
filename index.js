@@ -18,7 +18,6 @@ client.slashcommands = new Discord.Collection();
 client.events = new Discord.Collection();
 client.hadlerButtons = new Discord.Collection();
 
-
 module.exports.client = client
 
 require("discord-player/smoothVolume");
@@ -41,7 +40,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
 });
-
 
 ["events", "playerEvents", "hadlerButtons", "slashcommands"].forEach(handler => {
     try {
