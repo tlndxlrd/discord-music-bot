@@ -1,5 +1,6 @@
 const client = require('../index').client
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js")
+const Discord = require("discord.js")
 
 module.exports = async (queue, track, interaction) => {
 
@@ -31,7 +32,22 @@ module.exports = async (queue, track, interaction) => {
         .setDescription(`🎶 |Сейчас играет [${track.author} - ${track.title}](${track.url})`)
         .setFooter({ text: `🕞 |Длительность ${track.duration}` })
     
-    await queue.metadata.channel.send({ embeds: [embed], components: [row] })
+     const message1 = await queue.metadata.channel.send({ embeds: [embed], components: [row] })
+
+    //console.log(message1)
+
+     const messageId = message1.id
+     const channelId = message1.channelId
+
+    client.msgIdDel = new Discord.Collection();
+    client.channelIdDel = new Discord.Collection();
+
+    const event = require('./trackEnd')
+
+    const mmm = await client.msgIdDel.set('mmm', messageId)
+    const ccc = await client.channelIdDel.set('ccc', channelId)
+
+    console.log(mmm, ccc)
 
     await client.user.setActivity(`🎶 |${track.author} - ${track.title}`, { type: "LISTENING" });
     
