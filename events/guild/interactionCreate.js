@@ -1,18 +1,33 @@
+const { MessageEmbed } = require("discord.js")
+
 module.exports = async (client, interaction) => {
-    async function handleCommand() {
+
+    let embed = new MessageEmbed();
+
+    if (interaction.isCommand()) {
 
         let slashcmd = client.slashcommands.get(interaction.commandName)
         if (!slashcmd) {
-            await interaction.reply("Not a valid slash command")
+            embed
+                .setTitle('❌ |Ошибка')
+                .setDescription("Недопустимая команда")
+            return await interaction.reply({embeds: [embed]})
         }
-
-        slashcmd.run(client, interaction)
+        try {
+            slashcmd.run(client, interaction)
+        } catch (e) {
+            console.log(e)
+        }
     }
-    if (interaction.isCommand()) handleCommand()
 
     if (interaction.isButton()) {
         let button = client.hadlerButtons.get(interaction.customId)
-        if (!button) return await interaction.reply('gg')
+        if (!button) {
+            embed
+                .setTitle('❌ |Ошибка')
+                .setDescription("Недопустимая кнопка")
+            return await interaction.reply({embeds: [embed]})
+        }
         try {
             await button.run(client, interaction)
         } catch (e) {

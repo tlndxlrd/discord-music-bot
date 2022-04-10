@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 const dotenv = require("dotenv")
 const fs = require("fs")
-const { Player } = require("discord-player")
+const { Player } = require("discord-player-tlndxlrd")
 const colors = require('colors')
 
 dotenv.config()
@@ -20,7 +20,7 @@ client.hadlerButtons = new Discord.Collection();
 
 module.exports.client = client
 
-require("discord-player/smoothVolume");
+require("discord-player-tlndxlrd/smoothVolume");
 
 const player = client.player = new Player(client, {
     spotifyBridge: false,

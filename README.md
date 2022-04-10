@@ -103,6 +103,3 @@ ___
 <p align="center"><img src="https://cdn.discordapp.com/attachments/704677949730848769/957401574219591720/3.gif"
 </p>
 
-# **Bugs**
-#### *Does not display track covers when adding a track, while tracks in an album or playlist show This is a bug in the disrod-player library.*
-___
