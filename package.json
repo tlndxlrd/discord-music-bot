@@ -4,7 +4,8 @@
   "description": "Discord music bot",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "icommand": "node index.js load"
   },
   "keywords": [],
   "author": "tlndxlrd#6666",
