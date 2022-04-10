@@ -1,10 +1,11 @@
 {
   "name": "discord-music-bot",
   "version": "0.23.1",
-  "description": "",
+  "description": "Discord music bot",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "icommand": "node index.js load"
   },
   "keywords": [],
   "author": "tlndxlrd#6666",
@@ -23,6 +24,7 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "ffmpeg-static": "^4.4.1",
+    "mongoose": "^6.2.10",
     "nodemon": "^2.0.15"
   }
 }

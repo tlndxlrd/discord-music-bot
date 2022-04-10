@@ -15,8 +15,6 @@ module.exports = {
 
 		if (!queue) return interaction.reply({ embeds: [embed], ephemeral: true })
 
-		await queue.clear()
-
 		await queue.destroy()
 
 		embed

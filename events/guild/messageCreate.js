@@ -1,4 +1,3 @@
-const client = require('../../index').client
 const usersEveryoneMap = new Map();
 const usersSpamMap = new Map();
 
@@ -50,16 +49,4 @@ module.exports = async message => {
       }, 20000);
     }
   }
-
-    let prefix = '='
-    let messageArray = message.content.split(" ");
-    let cmd = messageArray[0];
-    let args = messageArray.slice(1)
-
-    let commands = client.commands.get(cmd.slice(prefix.length)) || client.commands.get(client.aliases.get(cmd.slice(prefix.length)))
-    if(commands) {
-        if(!message.content.startsWith(prefix)) return;   
-        commands.run(client, message, args, prefix)
-    }
-    module.exports.message = message
 }

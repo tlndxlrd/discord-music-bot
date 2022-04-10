@@ -4,6 +4,7 @@ const ascii = require("ascii-table");
 let table = new ascii("Events");
 table.setHeading("Events", "Load status");
 const allevents = [];
+const MONGO_DB = process.env.MONGO_DB
 
 module.exports = async () => {
   try {
@@ -27,5 +28,21 @@ module.exports = async () => {
     console.log(table.toString().cyan);
   } catch (e) {
     console.log(e)
+  }
+  
+  const mongoose = require('mongoose')
+
+  mongoose.connect(MONGO_DB);
+  try {
+    const stringlength3 = 69;
+    console.log("\n")
+    console.log(`     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓`.bold.brightGreen)
+    console.log(`     ┃ `.bold.brightGreen + " ".repeat(-1 + stringlength3 - ` ┃ `.length) + "┃".bold.brightGreen)
+    console.log(`     ┃ `.bold.brightGreen + `                     MongoDB has Started`.bold.brightGreen + " ".repeat(-1 + stringlength3 - ` ┃ `.length - `                     MongoDB has Started`.length) + "┃".bold.brightGreen)
+    console.log(`     ┃ `.bold.brightGreen + " ".repeat(-1 + stringlength3 - ` ┃ `.length) + "┃".bold.brightGreen)
+    console.log(`     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛`.bold.brightGreen)
+  }
+  catch (e) {
+    console.log(String(e.stack).bgRed)
   }
 }

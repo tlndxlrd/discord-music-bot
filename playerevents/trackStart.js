@@ -1,6 +1,6 @@
 const client = require('../index').client
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js")
-const Discord = require("discord.js")
+const profileModel = require('../models/profileSchema')
 
 module.exports = async (queue, track) => {
 
@@ -25,24 +25,34 @@ module.exports = async (queue, track) => {
     )
 
     let embed = new MessageEmbed()
-
+    
     embed
         .setAuthor({ name: `Player`, iconURL: `${client.user.displayAvatarURL()}` })
         .setThumbnail(track.thumbnail)
         .setDescription(`🎶 |Сейчас играет [${track.author} - ${track.title}](${track.url})`)
         .setFooter({ text: `🕞 |Длительность ${track.duration}` })
-    
+
     const message1 = await queue.metadata.channel.send({ embeds: [embed], components: [row] })
 
     let messageId = message1.id
     let channelId = message1.channelId
+    let guildId = message1.guildId
 
-    client.msgIdDel = new Discord.Collection();
-    client.channelIdDel = new Discord.Collection();
+    profileData = await profileModel.findOne({ serverID: guildId });
+    if (!profileData) {
+        let profile = await profileModel.create({
+            serverID: guildId,
+            channelDel: channelId,
+            msgDel: messageId
+        });
+        profile.save();
+    }
 
-    let mmm = await client.msgIdDel.set('mmm', messageId)
-    let ccc = await client.channelIdDel.set('ccc', channelId)
-
-    await client.user.setActivity(`🎶 |${track.author} - ${track.title}`, { type: "LISTENING" });
-    
+    if (profileData) {
+        await profileModel.findOneAndUpdate({ serverID: guildId },
+            {
+                channelDel: channelId,
+                msgDel: messageId
+            })
+    }
 }

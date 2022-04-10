@@ -27,6 +27,5 @@ module.exports = {
         await interaction.reply({
             embeds: [embed], ephemeral: true
         })
-        await interaction.message.delete()
     }
 }
