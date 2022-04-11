@@ -74,7 +74,7 @@ GUILD_ID=id of the guild where you want to add the bot
 ___
 ### *After adding parameters, use the following command in the console to add commands to your server:*
 ```
-node index.js load
+npm run icommand
 ```
 ___
 # **Launch bot**
