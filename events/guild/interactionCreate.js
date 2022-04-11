@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js")
+const player = require('../../index').player
 
 module.exports = async (client, interaction) => {
 
@@ -14,7 +15,7 @@ module.exports = async (client, interaction) => {
             return await interaction.reply({embeds: [embed]})
         }
         try {
-            slashcmd.run(client, interaction)
+            slashcmd.run(client, interaction, player)
         } catch (e) {
             console.log(e)
         }
@@ -29,7 +30,7 @@ module.exports = async (client, interaction) => {
             return await interaction.reply({embeds: [embed]})
         }
         try {
-            await button.run(client, interaction)
+            await button.run(client, interaction, player)
         } catch (e) {
             console.log(e)
         }

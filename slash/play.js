@@ -8,7 +8,7 @@ module.exports = {
         .setDescription("Воспроизводит трек или плейлист из youtube или spotify")
         .addStringOption((option) => option.setName("url_name").setDescription("Ссылка/название на трек или плейлист").setRequired(true)
         ),
-    run: async (client, interaction) => {
+    run: async (client, interaction, player) => {
 
         await interaction.deferReply({ ephemeral: true })
 
@@ -20,7 +20,7 @@ module.exports = {
 
         if (!interaction.member.voice.channel) return interaction.editReply({ embeds: [embed] })
 
-        const queue = await client.player.createQueue(interaction.guild, {
+        const queue = await player.createQueue(interaction.guild, {
             metadata: {
                 channel: interaction.channel
             }
@@ -29,7 +29,7 @@ module.exports = {
         if (!queue.connection) await queue.connect(interaction.member.voice.channel)
 
         let url = interaction.options.getString("url_name")
-        const result = await client.player.search(url, {
+        const result = await player.search(url, {
             requestedBy: interaction.user,
             searchEngine: QueryType.AUTO
         })

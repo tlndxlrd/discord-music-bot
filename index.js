@@ -22,7 +22,7 @@ module.exports.client = client
 
 require("discord-player-tlndxlrd/smoothVolume");
 
-const player = client.player = new Player(client, {
+const player = new Player(client, {
     spotifyBridge: false,
     ytdlOptions: {
         highWaterMark: 1024*1024*60,

@@ -9,9 +9,9 @@ module.exports = {
             .addChoice('Трек', 'track')
             .addChoice('Выключить', 'delfilter')),
 
-    run: async (client, interaction) => {
+    run: async (client, interaction, player) => {
 
-        const queue = client.player.getQueue(interaction.guildId)
+        const queue = player.getQueue(interaction.guildId)
 
         let object = interaction.options._hoistedOptions[0].value
 

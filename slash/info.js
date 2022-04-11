@@ -3,8 +3,8 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
 	data: new SlashCommandBuilder().setName("info").setDescription("Отображает информацию о воспроизводимой в данный момент треке"),
-	run: async (client, interaction) => {
-		const queue = client.player.getQueue(interaction.guildId)
+	run: async (client, interaction, player) => {
+		const queue = player.getQueue(interaction.guildId)
 
 		let embed = new MessageEmbed()
 

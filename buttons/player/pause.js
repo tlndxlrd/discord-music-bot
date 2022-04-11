@@ -5,7 +5,7 @@ module.exports = {
         name: 'pause'
     },
 
-    run: async (client, interaction) => {
+    run: async (client, interaction, player) => {
 
         const row = new MessageActionRow().addComponents(
             new MessageButton()
@@ -27,7 +27,7 @@ module.exports = {
                 .setStyle('PRIMARY'),
         )
 
-        const queue = client.player.getQueue(interaction.guildId)
+        const queue = player.getQueue(interaction.guildId)
         const track = queue.current
         let embed = new MessageEmbed()
 

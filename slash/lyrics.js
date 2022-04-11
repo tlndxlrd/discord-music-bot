@@ -52,7 +52,7 @@ module.exports = {
             .setName("title")
             .setDescription("Название трека для текста").setRequired(false)),
 
-    run: async (client, interaction) => {
+    run: async (client, interaction, player) => {
         await interaction.deferReply({ ephemeral: true })
         const title = interaction.options.getString("title");
         const embed5 = new MessageEmbed({
@@ -78,7 +78,7 @@ module.exports = {
 
         if (title) return sendLyrics(title);
 
-        const queue = await client.player.createQueue(interaction.guild, {
+        const queue = await player.createQueue(interaction.guild, {
             metadata: {
                 channel: interaction.channel
             }

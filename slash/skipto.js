@@ -5,9 +5,9 @@ module.exports = {
 	data: new SlashCommandBuilder().setName("skipto").setDescription("Переход к определенному треку в очереди")
 		.addNumberOption((option) =>
 			option.setName("tracknumber").setDescription("Трек, на который нужно перейти").setMinValue(1).setRequired(true)),
-	run: async (client, interaction) => {
+	run: async (client, interaction, player) => {
 
-		const queue = client.player.getQueue(interaction.guildId)
+		const queue = player.getQueue(interaction.guildId)
 
 		let embed = new MessageEmbed()
 

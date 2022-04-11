@@ -7,9 +7,9 @@ module.exports = {
         .setDescription("Отображает текущую очередь треков")
         .addNumberOption((option) => option.setName("page").setDescription("Cтраницы очереди треков").setMinValue(1)),
 
-    run: async (client, interaction) => {
+    run: async (client, interaction, player) => {
 
-        const queue = client.player.getQueue(interaction.guildId)
+        const queue = player.getQueue(interaction.guildId)
 
         let embed = new MessageEmbed()
 

@@ -3,9 +3,9 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
 	data: new SlashCommandBuilder().setName("pause").setDescription("Ставит трек на паузу"),
-	run: async (client, interaction) => {
+	run: async (client, interaction, player) => {
 
-		const queue = client.player.getQueue(interaction.guildId)
+		const queue = player.getQueue(interaction.guildId)
 
 		let embed = new MessageEmbed()
 

@@ -5,8 +5,8 @@ module.exports = {
         name: 'stop'
     },
 
-    run: async (client, interaction) => {
-        const queue = client.player.getQueue(interaction.guildId)
+    run: async (client, interaction, player) => {
+        const queue = player.getQueue(interaction.guildId)
         let embed = new MessageEmbed()
 
         embed
