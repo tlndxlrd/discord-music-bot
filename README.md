@@ -92,7 +92,7 @@ ____
 "@discordjs/voice": "^0.8.0",
 "ascii-table": "^0.0.9",
 "colors": "^1.4.0",
-"discord-player": "^5.2.2",
+"discord-player-tlndxlrd": "^5.2.5",
 "discord.js": "^13.6.0",
 "dotenv": "^16.0.0",
 "express": "^4.17.3",
