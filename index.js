@@ -10,7 +10,16 @@ const TOKEN = process.env.TOKEN
 const client = new Discord.Client({
     intents: [
         "GUILDS",
-        "GUILD_VOICE_STATES"
+        "GUILD_VOICE_STATES",
+        'GUILD_MEMBERS',
+        'GUILD_MESSAGES',
+        'DIRECT_MESSAGES',
+        'DIRECT_MESSAGE_REACTIONS',
+        'GUILD_BANS',
+        'GUILD_MESSAGE_REACTIONS',
+        'GUILD_EMOJIS_AND_STICKERS',
+        'GUILD_INVITES',
+        'GUILD_PRESENCES'
     ]
 });
 
@@ -25,7 +34,12 @@ require("discord-player-tlndxlrd/smoothVolume");
 const player = new Player(client, {
     spotifyBridge: false,
     ytdlOptions: {
-        highWaterMark: 1024*1024*60,
+        // requestOptions: {
+        //     headers: {
+        //         cookie: "YOUR_YOUTUBE_COOKIE"
+        //     }
+        // },
+        highWaterMark: 1 << 25,
         quality: "highestaudio"
 
     }

@@ -1,11 +1,12 @@
 {
   "name": "discord-music-bot",
-  "version": "0.23.1",
+  "version": "0.23.3",
   "description": "Discord music bot",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "icommand": "node index.js load"
+    "icommand": "node index.js load",
+    "test": "0x -o ."
   },
   "keywords": [],
   "author": "tlndxlrd#6666",
@@ -19,7 +20,7 @@
     "avconv": "^3.1.0",
     "axios": "^0.26.1",
     "colors": "^1.4.0",
-    "discord-player-tlndxlrd": "^5.2.5",
+    "discord-player-tlndxlrd": "^5.2.6",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",

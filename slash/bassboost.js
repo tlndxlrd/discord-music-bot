@@ -6,7 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder().setName("bassboost").setDescription("Фильтр усилиение басов")
         .addStringOption((option) => option.setName('boost').setDescription('Режим усиления').setRequired(true)
             .addChoice('Слегка усилить', 'bassboost_low')
-            .addChoice('Среддне усилить', 'bassboost')
+            .addChoice('Средне усилить', 'bassboost')
             .addChoice('Сильно усилить', 'bassboost_high')
             .addChoice('Выключить фильтр', 'delfilter')),
 

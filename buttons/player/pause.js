@@ -11,12 +11,12 @@ module.exports = {
             new MessageButton()
                 .setCustomId('resume')
                 .setLabel('Play ▶️')
-                .setStyle('PRIMARY'),
+                .setStyle('SECONDARY')
+                .setDisabled(true),
             new MessageButton()
                 .setCustomId('pause')
                 .setLabel('Pause ⏸️')
-                .setStyle(`SECONDARY`)
-                .setDisabled(true),
+                .setStyle(`PRIMARY`),
             new MessageButton()
                 .setCustomId('stop')
                 .setLabel('Stop ⏹️')
@@ -25,10 +25,15 @@ module.exports = {
                 .setCustomId('skip')
                 .setLabel('Skip ⏭️')
                 .setStyle('PRIMARY'),
+            new MessageButton()
+                .setCustomId('queue')
+                .setLabel('🗨️ Queue')
+                .setStyle('PRIMARY'),
         )
 
         const queue = player.getQueue(interaction.guildId)
         const track = queue.current
+        
         let embed = new MessageEmbed()
 
         embed

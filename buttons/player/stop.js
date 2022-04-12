@@ -6,7 +6,9 @@ module.exports = {
     },
 
     run: async (client, interaction, player) => {
+
         const queue = player.getQueue(interaction.guildId)
+        
         let embed = new MessageEmbed()
 
         embed

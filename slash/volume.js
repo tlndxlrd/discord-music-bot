@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
 	data: new SlashCommandBuilder().setName("volume").setDescription("Регулировка громкости")
-		.addNumberOption((option) => option.setName("set_volume").setDescription("Напишите громность от 0 до 100").setRequired(true).setMaxValue(100).setMinValue(0)),
+		.addNumberOption((option) => option.setName("set_volume").setDescription("Напишите громкость от 0 до 100").setRequired(true).setMaxValue(100).setMinValue(0)),
 	run: async (client, interaction, player) => {
 
 		const queue = player.getQueue(interaction.guildId)

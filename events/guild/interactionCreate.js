@@ -23,12 +23,7 @@ module.exports = async (client, interaction) => {
 
     if (interaction.isButton()) {
         let button = client.hadlerButtons.get(interaction.customId)
-        if (!button) {
-            embed
-                .setTitle('❌ |Ошибка')
-                .setDescription("Недопустимая кнопка")
-            return await interaction.reply({embeds: [embed]})
-        }
+        if (!button) return        
         try {
             await button.run(client, interaction, player)
         } catch (e) {

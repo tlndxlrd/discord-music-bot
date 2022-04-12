@@ -22,6 +22,10 @@ module.exports = async (queue, track) => {
             .setCustomId('skip')
             .setLabel('Skip ⏭️')
             .setStyle('PRIMARY'),
+        new MessageButton()
+            .setCustomId('queue')
+            .setLabel('🗨️ Queue')
+            .setStyle('PRIMARY'),
     )
 
     let embed = new MessageEmbed()

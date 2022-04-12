@@ -1,7 +1,7 @@
 const client = require('../index').client
 const fs = require("fs");
 const ascii = require("ascii-table");
-let table = new ascii("Events");
+let table = new ascii("Client");
 table.setHeading("Events", "Load status");
 const allevents = [];
 const MONGO_DB = process.env.MONGO_DB

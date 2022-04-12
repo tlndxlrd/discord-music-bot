@@ -1,9 +1,11 @@
 const usersEveryoneMap = new Map();
 const usersSpamMap = new Map();
 
-module.exports = async message => {
+module.exports = async (client, message) => {
 
   if(message.author.bot || message.channel.type == 'DM') return;
+
+  // console.log(message)
 
   //AntiSpam
   if(usersSpamMap.has(message.author.id)) {

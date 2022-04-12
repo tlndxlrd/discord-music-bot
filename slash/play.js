@@ -40,10 +40,16 @@ module.exports = {
                 .setDescription("Не найдено")
             return interaction.editReply({ embeds: [embed] })
         }
-        console.log()
+
         const playlist = result.playlist
         const song = result.tracks[0]
         if (playlist) {
+            if (result.tracks.length > 50) {
+                embed
+                    .setTitle('❌ |Ошибка')
+                    .setDescription("Нельзя добавить более 50 треков")
+                return interaction.editReply({ embeds: [embed] })
+            }
             try {
                 await queue.addTracks(result.tracks)
                 embed
@@ -71,7 +77,7 @@ module.exports = {
                 .setDescription(`🎶 |Трек добавлен в очередь [${track.author} - ${track.title}](${track.url})`)
                 .setFooter({ text: `🕞 |Длительность ${track.duration}` })
 
-            if (!queue.playing) { await queue.play() }
+            if (!queue.playing) await queue.play()
 
             return await interaction.channel.send({
                 embeds: [embed]
