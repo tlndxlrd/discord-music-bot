@@ -8,7 +8,7 @@ module.exports = {
 
 		const queue = player.getQueue(interaction.guildId)
 
-		const volume = (interaction.options.getNumber("set_volume"))
+		const volume = interaction.options.getNumber("set_volume")
 
 		let embed = new MessageEmbed()
 

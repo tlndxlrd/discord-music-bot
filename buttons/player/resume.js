@@ -16,7 +16,8 @@ module.exports = {
             new MessageButton()
                 .setCustomId('pause')
                 .setLabel('Pause ⏸️')
-                .setStyle(`PRIMARY`),
+                .setStyle(`PRIMARY`)
+                .setDisabled(false),
             new MessageButton()
                 .setCustomId('stop')
                 .setLabel('Stop ⏹️')
@@ -28,6 +29,17 @@ module.exports = {
             new MessageButton()
                 .setCustomId('queue')
                 .setLabel('🗨️ Queue')
+                .setStyle('PRIMARY'),
+        )
+
+        const row1 = new MessageActionRow().addComponents(
+            new MessageButton()
+                .setCustomId('seek1')
+                .setLabel('-15s ⏪')
+                .setStyle('PRIMARY'),
+                new MessageButton()
+                .setCustomId('seek2')
+                .setLabel('+15s ⏩')
                 .setStyle('PRIMARY'),
         )
 
@@ -50,7 +62,7 @@ module.exports = {
             .setDescription(`🎶 |Сейчас играет [${track.author} - ${track.title}](${track.url})`)
             .setFooter({ text: `🕞 |Длительность ${track.duration}` })
 
-        await interaction.message.edit({ embeds: [embedPlayer], components: [row] })
+        await interaction.message.edit({ embeds: [embedPlayer], components: [row, row1] })
 
         embed
             .setTitle('✅ |Выполнено')

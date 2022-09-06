@@ -26,6 +26,8 @@ const client = new Discord.Client({
 client.slashcommands = new Discord.Collection();
 client.events = new Discord.Collection();
 client.hadlerButtons = new Discord.Collection();
+client.command = new Discord.Collection();
+client.aliases = new Discord.Collection();
 
 module.exports.client = client
 
@@ -50,12 +52,12 @@ module.exports.player = player
 
 var express = require('express');
 var app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
 });
 
-["events", "playerEvents", "hadlerButtons", "slashcommands"].forEach(handler => {
+["events", "playerEvents", "hadlerButtons", "slashcommands", "command"].forEach(handler => {
     try {
         require(`./handlers/${handler}`)(client, player)
     } catch (e) {

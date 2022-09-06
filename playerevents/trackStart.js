@@ -28,15 +28,26 @@ module.exports = async (queue, track) => {
             .setStyle('PRIMARY'),
     )
 
+    const row1 = new MessageActionRow().addComponents(
+        new MessageButton()
+            .setCustomId('seek1')
+            .setLabel('-15s ⏪')
+            .setStyle('PRIMARY'),
+            new MessageButton()
+            .setCustomId('seek2')
+            .setLabel('+15s ⏩')
+            .setStyle('PRIMARY'),
+    )
+
     let embed = new MessageEmbed()
-    
+
     embed
         .setAuthor({ name: `Player`, iconURL: `${client.user.displayAvatarURL()}` })
         .setThumbnail(track.thumbnail)
         .setDescription(`🎶 |Сейчас играет [${track.author} - ${track.title}](${track.url})`)
         .setFooter({ text: `🕞 |Длительность ${track.duration}` })
 
-    const message1 = await queue.metadata.channel.send({ embeds: [embed], components: [row] })
+    const message1 = await queue.metadata.channel.send({ embeds: [embed], components: [row, row1] })
 
     let messageId = message1.id
     let channelId = message1.channelId
