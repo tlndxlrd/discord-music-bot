@@ -32,9 +32,9 @@ module.exports = {
 
         let url = interaction.options.getString("url")
 
-        const parse = async (url) => {
-            const getHTML = async (uri) => {
-                const { data } = await axios.get(uri)
+
+            const getHTML = async (url) => {
+                const { data } = await axios.get(url)
                 return cheerio.load(data)
             }
             const selector = await getHTML(url)
@@ -47,10 +47,8 @@ module.exports = {
                 return selector(element).find('a')
                 // console.log(artist)
             })
-            return artist.text() + '-' + title.text()
-        }
-        
-        const result = await player.search(parse(url), {
+            
+        const result = await player.search(artist.text() + '-' + title.text(), {
             requestedBy: interaction.user,
             searchEngine: QueryType.AUTO
         })
