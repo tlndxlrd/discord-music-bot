@@ -1,11 +1,10 @@
-const player = require('../index').player
 const fs = require("fs");
 const ascii = require("ascii-table");
 let table = new ascii("Player");
 table.setHeading("Events", "Load status");
 const allevents = [];
 
-module.exports = async () => {
+module.exports = async (player) => {
   try {
     const event_files = fs.readdirSync(`./playerevents/`).filter((file) => file.endsWith(".js"));
     for (const file of event_files) {

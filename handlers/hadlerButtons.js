@@ -1,7 +1,6 @@
-const client = require('../index').client
 const fs = require('fs');
 
-module.exports = async () => {
+module.exports = async (client) => {
     const buttonsFolders = fs.readdirSync('./buttons/')
     for (const folder of buttonsFolders) {
         const buttonsFiles = fs.readdirSync(`./buttons/${folder}`).filter((file) => file.endsWith(".js"));

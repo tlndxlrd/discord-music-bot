@@ -52,14 +52,22 @@ module.exports.player = player
 
 var express = require('express');
 var app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
 });
 
-["events", "playerEvents", "hadlerButtons", "slashcommands", "command"].forEach(handler => {
+["events", "hadlerButtons", "slashcommands", "command"].forEach(handler => {
     try {
-        require(`./handlers/${handler}`)(client, player)
+        require(`./handlers/${handler}`)(client)
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+["playerEvents"].forEach(handler => {
+    try {
+        require(`./handlers/${handler}`)(player)
     } catch (e) {
         console.log(e)
     }

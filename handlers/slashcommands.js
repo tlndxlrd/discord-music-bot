@@ -1,4 +1,3 @@
-const client = require('../index').client
 const ascii = require("ascii-table");
 let table = new ascii("Commands");
 table.setHeading("Commands", "Load status");
@@ -13,7 +12,7 @@ const GUILD_ID = process.env.GUILD_ID
 let commands = [];
 const allevents = [];
 
-module.exports = async () => {
+module.exports = async (client) => {
     try {
         const slashFiles = readdirSync(`./slash`).filter((file) => file.endsWith(".js"));
         for (let file of slashFiles) {

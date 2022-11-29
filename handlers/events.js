@@ -1,4 +1,3 @@
-const client = require('../index').client
 const fs = require("fs");
 const ascii = require("ascii-table");
 let table = new ascii("Client");
@@ -6,7 +5,7 @@ table.setHeading("Events", "Load status");
 const allevents = [];
 const MONGO_DB = process.env.MONGO_DB
 
-module.exports = async () => {
+module.exports = async (client) => {
   try {
     const load_dir = (dir) => {
       const event_files = fs.readdirSync(`./events/${dir}`).filter((file) => file.endsWith(".js"));
