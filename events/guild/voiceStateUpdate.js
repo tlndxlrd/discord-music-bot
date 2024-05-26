@@ -6,7 +6,7 @@ module.exports = async (client, newstate, oldstate) => {
 
   if (newChannel != undefined && oldChannel == undefined) {
 
-    if (newstate.guild.me.voice.channel?.id == newChannel.id) {
+    if (newstate.guild.members.me.voice.channel?.id == newChannel.id) {
 
       if (newChannel.members.size <= 1) {
 
@@ -19,7 +19,7 @@ module.exports = async (client, newstate, oldstate) => {
 
         let clienter = client.player;
 
-        if (newstate.guild.me == client.user.id)
+        if (newstate.guild.members.me == client.user.id)
 
           clienter = client.player;
 
